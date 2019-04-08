@@ -31,6 +31,15 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="BotHandeling.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="GameHandeling.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="SaveHandeling.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
