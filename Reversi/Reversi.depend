@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1554843639 source:c:\users\vernohd\documents\reversi\reversi\gamefield.c
+
+1554845072 source:c:\users\vernohd\documents\reversi\reversi\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Reversi.h"
+
+1554843886 source:c:\users\vernohd\documents\reversi\reversi\savemanagement.c
+
+1554845021 c:\users\vernohd\documents\reversi\reversi\reversi.h
+	<time.h>
+
+1554845184 source:c:\users\vernohd\documents\reversi\reversi\kimanagement.c
+
