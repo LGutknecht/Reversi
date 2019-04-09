@@ -6,7 +6,10 @@
 	<stdlib.h>
 	"Reversi.h"
 
-1554843886 source:c:\users\vernohd\documents\reversi\reversi\savemanagement.c
+1554846678 source:c:\users\vernohd\documents\reversi\reversi\savemanagement.c
+	<stdio.h>
+	<stdlib.h>
+	"Reversi.h"
 
 1554845021 c:\users\vernohd\documents\reversi\reversi\reversi.h
 	<time.h>
