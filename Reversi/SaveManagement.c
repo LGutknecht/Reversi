@@ -1,12 +1,7 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "Reversi.h"
-
-/**
-*   Declaring Function Prototypes
-**/
-void InitSave(struct SaveFile *Save);
+///THIS FILE HANDLES THE SAVESTATE
 
 /**
 *   Function to reset the SaveFile to it´s original state
@@ -31,4 +26,7 @@ void InitSave(struct SaveFile *Save){
     //For Player 2
     (*Save).GameField[4][4] = 2;
     (*Save).GameField[3][3] = 2;
+
+    ///Reset Game Time
+    (*Save).Time = 0;
 }

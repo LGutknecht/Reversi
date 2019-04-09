@@ -6,6 +6,10 @@ struct SaveFile{
     int Turn;
     int Time;
 };
+///Funtion Prototypes from SaveManagement.c
+void InitSave(struct SaveFile *Save);
 
+///Funtion Prototypes from GameBoard.c
+void DrawGameBoard(struct SaveFile Save);
 
 #endif // REVERSI_H_INCLUDED
