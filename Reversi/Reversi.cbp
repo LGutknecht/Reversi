@@ -31,6 +31,19 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="GameField.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="GamePlay.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="KIManagement.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Reversi.h" />
+		<Unit filename="SaveManagement.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

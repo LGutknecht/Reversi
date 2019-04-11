@@ -1,4 +1,4 @@
-/**
+/***
 *   Project: Game Reversi
 *
 *   Project Start Date: 09.04.2019
@@ -11,14 +11,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Reversi.h"
-///THIS FILE HANDLES THE GENERAL GAME
+/**THIS FILE HANDLES THE GENERAL GAME*/
 
 int main()
 {
-    ///Intialising Variables
+    /**Intialising Variables*/
     struct SaveFile Save;
     InitSave(&Save);
 
-    ///Drawing Game Board
+    /**Drawing Game Board*/
     DrawGameBoard(Save);
+
+    ///the players set alternately the stones
+    setGameStone(Save);
+    whichPlayerTurn(&Save);
 }
