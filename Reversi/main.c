@@ -18,11 +18,13 @@ int main()
     /**Intialising Variables*/
     struct SaveFile Save;
     InitSave(&Save);
-
-    /**Drawing Game Board*/
-    DrawGameBoard(Save);
+    playerWin = false;
 
     ///the players set alternately the stones
-    setGameStone(Save);
-    whichPlayerTurn(&Save);
+    while(playerWin == false) {
+        /**Drawing Game Board*/
+        DrawGameBoard(Save);
+        setGameStone(Save);
+        whichPlayerTurn(Save);
+    }
 }

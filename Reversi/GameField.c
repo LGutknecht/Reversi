@@ -8,6 +8,7 @@
 **/
 
 void DrawGameBoard(struct SaveFile Save){
+    system("cls");
     for(int i = 0; i < 8; i++){
         for(int k = 0; k < 8; k++){
             switch(Save.GameField[i][k]){
@@ -18,4 +19,16 @@ void DrawGameBoard(struct SaveFile Save){
         }
     printf("\n");
     }
+    printf("\n");
+    testGameField(Save);
+}
+
+void testGameField(struct SaveFile Save) {
+    for(int i = 0; i < 8; i++){
+        for(int k = 0; k < 8; k++){
+            printf(" %i", Save.GameField[i][k]);
+        }
+        printf("\n");
+    }
+
 }

@@ -22,20 +22,21 @@
 	<stdlib.h>
 	"Reversi.h"
 
-1554976289 source:c:\users\laltebor\documents\projekt\reversi\gamefield.c
+1555075659 source:c:\users\laltebor\documents\projekt\reversi\gamefield.c
 	<stdio.h>
 	<stdlib.h>
 	"Reversi.h"
 
-1554976289 c:\users\laltebor\documents\projekt\reversi\reversi.h
+1555071115 c:\users\laltebor\documents\projekt\reversi\reversi.h
 	<time.h>
+	<stdbool.h>
 
 1554976289 source:c:\users\laltebor\documents\projekt\reversi\kimanagement.c
 	<stdio.h>
 	<stdlib.h>
 	"Reversi.h"
 
-1554977703 source:c:\users\laltebor\documents\projekt\reversi\main.c
+1555071364 source:c:\users\laltebor\documents\projekt\reversi\main.c
 	<stdio.h>
 	<stdlib.h>
 	"Reversi.h"
@@ -45,9 +46,10 @@
 	<stdlib.h>
 	"Reversi.h"
 
-1554976751 source:c:\users\laltebor\documents\projekt\reversi\gameplay.c
+1555075922 source:c:\users\laltebor\documents\projekt\reversi\gameplay.c
 	<stdio.h>
 	<stdlib.h>
+	<conio.h>
 	<windows.h>
 	"Reversi.h"
 
