@@ -24,7 +24,7 @@ int main()
     while(playerWin == false) {
         /**Drawing Game Board*/
         DrawGameBoard(Save);
-        setGameStone(Save);
-        whichPlayerTurn(Save);
+        setGameStone(&Save);
+        whichPlayerTurn(&Save);
     }
 }

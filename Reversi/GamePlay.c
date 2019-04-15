@@ -8,18 +8,16 @@
 /**
 *   Declaring Function Prototypes
 **/
-void setGameStone(struct SaveFile Save);
+void setGameStone(struct SaveFile *Save);
 void goToXY(int column, int row);
-void whichPlayerTurn(struct SaveFile Save);
+void whichPlayerTurn(struct SaveFile *Save);
 
-
-void setGameStone(struct SaveFile Save) {
-    int column = 1, row = 0; /**always starting turn in top left corner*/
+void setGameStone(struct SaveFile *Save) {
+    int column = 1, row = 0; ///always starting turn in top left corner
     char input;
     goToXY(column, row);
 
-    input = getch();
-    while(input != 'y') {
+    do {
         input = getch();
         if(input == 'w') {
             if(row > 0) {
@@ -42,15 +40,18 @@ void setGameStone(struct SaveFile Save) {
             }
         }
         goToXY(1, 17);
-        printf("X: %i, Y: %i, p: %i", row, column / 2, Save.Turn);
+        printf("X: %i, Y: %i, p: %i", column / 2, row, (*Save).Turn);
         goToXY(column, row); ///setting the stone at the choosen place of the field
-        if(Save.Turn == 1) {
-            Save.GameField[column / 2][row] = 1;
+        if(input == 'y') {
+            if((*Save).Turn == 1) {
+                (*Save).GameField[row][column / 2] = 1;
+            }
+            else {
+                (*Save).GameField[row][column / 2] = 2;
+            }
         }
-        else {
-            Save.GameField[column / 2][row] = 2;
-        }
-    }
+
+    } while(input != 'y');
 }
 
 void goToXY(int column, int row) {
@@ -62,11 +63,11 @@ void goToXY(int column, int row) {
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-void whichPlayerTurn(struct SaveFile Save) {
-    if(Save.Turn == 1) {
-        Save.Turn = 2;
+void whichPlayerTurn(struct SaveFile *Save) {
+    if((*Save).Turn == 1) {
+        (*Save).Turn = 2;
     }
     else {
-        Save.Turn = 1;
+        (*Save).Turn = 1;
     }
 }
