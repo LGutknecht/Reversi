@@ -11,6 +11,7 @@
 void setGameStone(struct SaveFile *Save);
 void goToXY(int column, int row);
 void whichPlayerTurn(struct SaveFile *Save);
+void checkStoneSetValidation(struct SaveFile *Save, column, row);
 
 void setGameStone(struct SaveFile *Save) {
     int column = 1, row = 0; ///always starting turn in top left corner
@@ -42,15 +43,16 @@ void setGameStone(struct SaveFile *Save) {
         goToXY(1, 17);
         printf("X: %i, Y: %i, p: %i", column / 2, row, (*Save).Turn);
         goToXY(column, row); ///setting the stone at the choosen place of the field
-        if(input == 'y') {
-            if((*Save).Turn == 1) {
-                (*Save).GameField[row][column / 2] = 1;
-            }
-            else {
-                (*Save).GameField[row][column / 2] = 2;
+        if(checkStoneSetValidation((*Save), column, row)) {
+            if(input == 'y') {
+                if((*Save).Turn == 1) {
+                    (*Save).GameField[row][column / 2] = 1;
+                }
+                else {
+                    (*Save).GameField[row][column / 2] = 2;
+                }
             }
         }
-
     } while(input != 'y');
 }
 
@@ -70,4 +72,12 @@ void whichPlayerTurn(struct SaveFile *Save) {
     else {
         (*Save).Turn = 1;
     }
+}
+
+void checkStoneSetValidation(struct SaveFile *Save, column, row) {
+    if((*Save).GameField[column][row] == 1 || (*Save).GameField[column][row] == 2) {///is there already a stone at the choosen position?
+        return false;
+    }
+    ///is there a stone at the opposite in any direction?
+    ///HERR GUTKNECHT, LÖSEN SIE DAS MAL
 }
