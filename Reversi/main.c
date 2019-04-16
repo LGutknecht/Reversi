@@ -7,7 +7,6 @@
 *   Lukas Alte-Bornholt
 *   Lukas Gutknecht
 **/
-
 #include "Reversi.h"
 /**THIS FILE HANDLES THE GENERAL GAME*/
 int mainMenu();
@@ -32,23 +31,26 @@ int main()
 }
 
 int mainMenu() {
-
     char input;
-    ///Start Menu to navigate to the game, to the settings or close the game
-    printf("Willkommen zu Reversi!\n");
-    printf("Zahlen Druecken um durch das Menue zu navigieren: \n");
-    printf("1: Spiel Starten\n");
-    printf("2: Einstellungen\n");
-    printf("3: Beenden\n");
-
-    input = getch();
-    if(input == '2') {
+    do {
         system("cls");
-        openSettings();
-    }
-    if(input == '3') {
-        return 0; ///exit the game
-    }
+        ///Start Menu to navigate to the game, to the settings or close the game
+        printf("Willkommen zu Reversi!\n");
+        printf("Zahlen Druecken um durch das Menue zu navigieren: \n");
+        printf("1: Spiel Starten\n");
+        printf("2: Einstellungen\n");
+        printf("3: Beenden\n");
+
+        input = getch();
+        if(input == '2') {
+            system("cls");
+            openSettings();
+        }
+        if(input == '3') {
+            return 0; ///exit the game
+        }
+    } while(input != '1');
+
 }
 
 void openSettings(){
@@ -60,7 +62,7 @@ void openSettings(){
         printf("Willkommen zu den Einstellungen!\n\n");
         printf("2: Zurueck\n");
         goToXY(0, 1);
-        printf("1: ");
+        printf("1: Modus: ");
         if(playerAgainstPlayer == true) {
             printf("Spieler gegen Spieler");
         }
