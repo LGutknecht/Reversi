@@ -1,25 +1,22 @@
 # depslib dependency file v1.0
-1554848640 source:c:\users\vernohd\documents\reversi\reversi\gamefield.c
-	<stdio.h>
-	<stdlib.h>
+1555598952 source:c:\users\vernohd\documents\reversi\reversi\gamefield.c
 	"Reversi.h"
 
-1554848449 source:c:\users\vernohd\documents\reversi\reversi\main.c
-	<stdio.h>
-	<stdlib.h>
+1555607317 source:c:\users\vernohd\documents\reversi\reversi\main.c
 	"Reversi.h"
 
-1554848411 source:c:\users\vernohd\documents\reversi\reversi\savemanagement.c
-	<stdio.h>
-	<stdlib.h>
+1555598952 source:c:\users\vernohd\documents\reversi\reversi\savemanagement.c
 	"Reversi.h"
 
-1554848375 c:\users\vernohd\documents\reversi\reversi\reversi.h
+1555598952 c:\users\vernohd\documents\reversi\reversi\reversi.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<windows.h>
 	<time.h>
+	<stdbool.h>
 
-1554847866 source:c:\users\vernohd\documents\reversi\reversi\kimanagement.c
-	<stdio.h>
-	<stdlib.h>
+1555598952 source:c:\users\vernohd\documents\reversi\reversi\kimanagement.c
 	"Reversi.h"
 
 1555075659 source:c:\users\laltebor\documents\projekt\reversi\gamefield.c
@@ -51,5 +48,11 @@
 	<stdlib.h>
 	<conio.h>
 	<windows.h>
+	"Reversi.h"
+
+1555599351 source:c:\users\vernohd\documents\reversi\reversi\gameplay.c
+	"Reversi.h"
+
+1555606154 source:c:\users\vernohd\documents\reversi\reversi\stonemanagement.c
 	"Reversi.h"
 

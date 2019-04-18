@@ -7,7 +7,6 @@
 void setGameStone(struct SaveFile *Save);
 void goToXY(int column, int row);
 void whichPlayerTurn(struct SaveFile *Save);
-void checkStonePositionValidation(struct SaveFile *Save, int column, int row);
 
 /**
 Function: navigate over the gamefield with W-A-S-D Buttons and set the stone with 'y'-Button, you can not move out of the gamefield
@@ -79,12 +78,4 @@ void whichPlayerTurn(struct SaveFile *Save) {
     else {
         (*Save).Turn = 1;
     }
-}
-
-void checkStonePositionValidation(struct SaveFile *Save, int column, int row) {
-    if((*Save).GameField[column][row] == 1 || (*Save).GameField[column][row] == 2) {///is there already a stone at the choosen position?
-        return false;
-    }
-    ///is there a stone at the opposite in any direction?
-    ///HERR GUTKNECHT, LÖSEN SIE DAS MAL
 }

@@ -18,9 +18,9 @@ int main()
     struct SaveFile Save;
     InitSave(&Save);
     playerWin = false;
-    if(mainMenu() == 0) {
-        return; ///the game will be closed after pressing 3 for 'beenden' in the Main Menu
-    }
+    //if(mainMenu() == 0) {
+    //    return; ///the game will be closed after pressing 3 for 'beenden' in the Main Menu
+    //}
     ///the players set alternately the stones
     while(playerWin == false) {
         /**Drawing Game Board*/
