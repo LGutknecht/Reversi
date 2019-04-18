@@ -2,12 +2,11 @@
 /**THIS FILE HANDLES THE SAVESTATE**/
 
 /**
-*   Function to reset the SaveFile to it´s original state
+*   Function: reset the SaveFile to it´s original state
 *
 *   Parameters:
 *   struct SaveFile Save: Gets passed the SaveFile as a VAR to edit it
 **/
-
 void InitSave(struct SaveFile *Save){
     /**Clearing the Board**/
     for(int i = 0; i < 8; i++){

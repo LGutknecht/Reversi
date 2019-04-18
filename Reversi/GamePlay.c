@@ -7,8 +7,13 @@
 void setGameStone(struct SaveFile *Save);
 void goToXY(int column, int row);
 void whichPlayerTurn(struct SaveFile *Save);
-void checkStonePositionValidation(struct SaveFile * Save, int column, int row);
+void checkStonePositionValidation(struct SaveFile *Save, int column, int row);
 
+/**
+Function: navigate over the gamefield with W-A-S-D Buttons and set the stone with 'y'-Button, you can not move out of the gamefield
+Input: struct Save
+Output: /
+*/
 void setGameStone(struct SaveFile *Save) {
     int column = 1, row = 0; ///always starting turn in top left corner
     char input;
@@ -53,6 +58,11 @@ void setGameStone(struct SaveFile *Save) {
     } while(input != 'y');
 }
 
+/**
+Function: sets the position of the cursor to a specific coordinate
+Input: column coordinate of the console window, row coordinate of the console window
+Output: /
+*/
 void goToXY(int column, int row) {
 
     COORD coord; ///specific Coordinate struct with 2 Paramters: X for the columns, Y for the rows

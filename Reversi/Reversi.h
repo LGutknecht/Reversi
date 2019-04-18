@@ -2,10 +2,11 @@
 #define REVERSI_H_INCLUDED
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
+#include <conio.h> ///Needed for getch() function
 #include <windows.h>/** Needed for COORD structure*/
 #include <time.h>
 #include <stdbool.h>
+
 struct SaveFile{
     int GameField[9][9];
     int Turn;

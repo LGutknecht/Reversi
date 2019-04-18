@@ -29,7 +29,11 @@ int main()
         whichPlayerTurn(&Save);
     }
 }
-
+/**
+Function: drawing of MainMenu with printf(), press number-Buttons to navigate, the menu appears again, when no valid button is pressed,you can start the game, go to settings or quit the program
+Input: /
+Output: /
+*/
 int mainMenu() {
     char input;
     do {
@@ -50,9 +54,13 @@ int mainMenu() {
             return 0; ///exit the game
         }
     } while(input != '1');
-
 }
 
+/**
+Function: settings of the program: Modes, who you play against (Computer or other player), look for rules of the game
+Input: /
+Output: /
+*/
 void openSettings(){
 
     char input;
@@ -60,7 +68,8 @@ void openSettings(){
     do {
         ///Settings Menu to set the play style: Player vs player OR Player vs Computer
         printf("Willkommen zu den Einstellungen!\n\n");
-        printf("2: Zurueck\n");
+        printf("2: Regeln des Spiels\n");
+        printf("3: Zurueck\n");
         goToXY(0, 1);
         printf("1: Modus: ");
         if(playerAgainstPlayer == true) {
@@ -79,8 +88,43 @@ void openSettings(){
             }
             system("cls");
         }
-    } while(input != '2');
+        else if (input == '2'){
+            system("cls");
+            openManual();
+        }
+    } while(input != '3');
     system("cls");
 
     mainMenu();///Go back to the Main Menu
+}
+
+/**
+Function: rules of the game, press the number 1, to go back to the settings
+Input: /
+Output: /
+*/
+void openManual() {
+
+    char input;
+    do {
+        for(int i = 0; i < 52; i++) {
+            printf("~");
+        }
+        printf("Regeln des Spiels");
+        for(int i = 0; i < 51; i++) {
+            printf("~");
+        }
+        printf("\n\n");
+        printf(" - Es wird mit 2 Spielern auf einem 8 mal 8 grossen Spielfeld gespielt.\n\n");
+        printf(" - Die Spieler setzen abwechselnd immer einen Stein auf das Feld.\n\n");
+        printf(" - Um einen Stein zu platzieren, muss der Spieler mit den W-A-S-D Tasten den Cursor zum gewuenschten Feld\n   navigieren und zum setzen 'y' druecken.\n\n");
+        printf(" - Man darf den Stein nur da platzieren, wo ausgehend von dem gesetzten Stein in beliebiger Richtung\n   (waagerecht, senkrecht und diagonal) mindestens ein gegnerischer Stein anschliesst und dann wieder ein eigener\n   Stein liegt. Dabei muessen alle Felder zwischen dem eigenen Steinen von gegnerischen Steinen besetzt sein.\n\n");
+        printf(" - Alle eingeschlossenen, gegnerischen Steine werden im selben Zug zu den eigenen Steinen.\n\n");
+        printf(" - Es hat der Spieler am Ende gewonnen, dessen Anzahl an Steinen auf dem Feld groesser ist.\n\n");
+        printf(" - Das Spiel endet, wenn die Spieler keine Zuege mehr machen koennen, dies ist der Fall, wenn das Spielfeld\n   komplett voll ist oder beide Spieler direkt hintereinander gepasst haben.\n\n");
+        printf("1: Zurueck");
+
+        input = getch();
+        system("cls");
+    } while (input != '1');
 }
