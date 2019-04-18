@@ -138,7 +138,7 @@ int CheckStoneUpRight(struct SaveFile Save, int column, int row){
     for(row-=2; row >= 0; row--){
         for(column+=2; column <8; column++){
             if ((Save.Turn == 1) && (Save.GameField[row][column] == 1)){
-            return 1;
+                return 1;
             }
             else if ((Save.Turn == 2) && (Save.GameField[row][column] == 2)){
                 return 1;
@@ -152,7 +152,7 @@ int CheckStoneUpLeft(struct SaveFile Save, int column, int row){
     for(row-=2; row >= 0; row--){
         for(column-=2; column >=0; column--){
             if ((Save.Turn == 1) && (Save.GameField[row][column] == 1)){
-            return 1;
+                return 1;
             }
             else if ((Save.Turn == 2) && (Save.GameField[row][column] == 2)){
                 return 1;
@@ -166,7 +166,7 @@ int CheckStoneDownLeft(struct SaveFile Save, int column, int row){
     for(row+=2; row < 8; row++){
         for(column-=2; column >=0; column--){
             if ((Save.Turn == 1) && (Save.GameField[row][column] == 1)){
-            return 1;
+                return 1;
             }
             else if ((Save.Turn == 2) && (Save.GameField[row][column] == 2)){
                 return 1;
@@ -180,7 +180,7 @@ int CheckStoneDownRight(struct SaveFile Save, int column, int row){
     for(row+=2; row < 8; row++){
         for(column+=2; column <8; column++){
             if ((Save.Turn == 1) && (Save.GameField[row][column] == 1)){
-            return 1;
+                return 1;
             }
             else if ((Save.Turn == 2) && (Save.GameField[row][column] == 2)){
                 return 1;

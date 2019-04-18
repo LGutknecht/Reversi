@@ -22,13 +22,13 @@ int main()
     if(mainMenu() == 0) {
         return 0; ///the game will be closed after pressing 3 for 'beenden' in the Main Menu
     }
-    ///the players set alternately the stones
-    while(playerWin == false) {
+    ///the players sets alternately the stones
+    do {
         /**Drawing Game Board*/
         DrawGameBoard(Save);
         setGameStone(&Save);
         whichPlayerTurn(&Save);
-    }
+    } while(playerWin == false);
 }
 /**
 Function: drawing of MainMenu with printf(), press number-Buttons to navigate, the menu appears again, when no valid button is pressed,you can start the game, go to settings or quit the program
