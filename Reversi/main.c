@@ -16,10 +16,11 @@ int main()
 {
     /**Intialising Variables*/
     struct SaveFile Save;
+
     InitSave(&Save);
     playerWin = false;
     if(mainMenu() == 0) {
-        return; ///the game will be closed after pressing 3 for 'beenden' in the Main Menu
+        return 0; ///the game will be closed after pressing 3 for 'beenden' in the Main Menu
     }
     ///the players set alternately the stones
     while(playerWin == false) {
@@ -46,12 +47,12 @@ int mainMenu() {
         printf("3: Beenden\n");
 
         input = getch();
-        if(input == '2') {
+        if(input == '2') {///Button for settings is pressed
             system("cls");
             openSettings();
         }
-        if(input == '3') {
-            return 0; ///exit the game
+        if(input == '3') {///Button for exit the game
+            return 0;
         }
     } while(input != '1');
 }
@@ -72,20 +73,12 @@ void openSettings(){
         printf("3: Zurueck\n");
         goToXY(0, 1);
         printf("1: Modus: ");
-        if(playerAgainstPlayer == true) {
-            printf("Spieler gegen Spieler");
-        }
-        else {
-            printf("Spieler gegen Computer");
-        }
+        setGameMode(playerAgainstPlayer);
         input = getch();
         if(input == '1') {
-            if(playerAgainstPlayer == true) {
-                playerAgainstPlayer = false;
-            }
-            else {
-                playerAgainstPlayer = true;
-            }
+            system("cls");
+            playerAgainstPlayer = !playerAgainstPlayer;
+            setGameMode(playerAgainstPlayer);
             system("cls");
         }
         else if (input == '2'){
@@ -97,7 +90,20 @@ void openSettings(){
 
     mainMenu();///Go back to the Main Menu
 }
+/**
+Function: sets the Gamemode between Player vs Player and Player vs Computer
+Input: boolean playerAgainstPlayer
+Output: /
+*/
+void setGameMode(bool playerAgainstPlayer) {
+    if(playerAgainstPlayer == true) {
+        printf("Spieler gegen Spieler");
+    }
+    else {
 
+        printf("Spieler gegen Computer");
+    }
+}
 /**
 Function: rules of the game, press the number 1, to go back to the settings
 Input: /
