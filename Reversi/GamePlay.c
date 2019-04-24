@@ -8,8 +8,9 @@ void setGameStone(struct SaveFile *Save);
 void goToXY(int column, int row);
 void whichPlayerTurn(struct SaveFile *Save);
 void checkStonePositionValidation(struct SaveFile *Save, int column, int row);
-void checkNumberOfPlayerStones(struct SaveFile *Save, int column, int row);
+void checkNumberOfPlayerStones(struct SaveFile *Save);
 int ValidateAndWriteStonePosition(struct SaveFile *Save, int column, int row);
+void stopWatch(struct SaveFile *Save);
 
 /**
 Function: navigate over the gamefield with W-A-S-D Buttons and set the stone with 'y'-Button, you can not move out of the gamefield
@@ -19,6 +20,9 @@ Output: /
 void setGameStone(struct SaveFile *Save) {
     int column = 1, row = 0; ///always starting turn in top left corner
     char input;
+
+    pthread_t time;/// Kick off a new thread
+    pthread_create(&time, NULL, void *(*stopwatch(arg))(void*), NULL);
     goToXY(column, row);
     do {
         input = getch();
@@ -59,12 +63,14 @@ void setGameStone(struct SaveFile *Save) {
                 system("cls");
                 goToXY(30, 15);
                 printf("Der Stein kann nicht an die aktuelle Position gesetzt werden!");
-                _sleep(300);
+                Sleep(300);
             }
         }
         if(input == 'w' || input == 'a' || input == 's' || input == 'd' || input == 'y') {
-          checkNumberOfPlayerStones(&(*Save), column, row);
+          checkNumberOfPlayerStones(&(*Save));
         }
+        stopWatch(&(*Save), input);
+        goToXY(column, row); ///going back to the coordinate where the cursor has been stand
     } while(input != 'y');
 }
 /**
@@ -98,7 +104,7 @@ Function: checks the number of the PlayerStones immediatly after a turn
 Input: struct Save, column and row of the cursor on the field
 Output: /
 */
-void checkNumberOfPlayerStones(struct SaveFile *Save, int column, int row) {
+void checkNumberOfPlayerStones(struct SaveFile *Save) {
     int numberPOne = 0, numberPTwo = 0;
 
     for(int i = 0; i < 8; i++) {
@@ -112,8 +118,35 @@ void checkNumberOfPlayerStones(struct SaveFile *Save, int column, int row) {
         }
     }
     goToXY(20, 0);
+    printf("Score");
+    goToXY(20, 1);
     printf("Spieler 1: %i", numberPOne);
-    goToXY(20,1);
+    goToXY(20, 2);
     printf("Spieler 2: %i", numberPTwo);
-    goToXY(column, row); ///going back to the coordinate where the cursor has been stand
+}
+
+void stopWatch(struct SaveFile *Save) {
+    int minutes = 0, hours = 0;
+
+    clock_t seconds;
+    do {
+        seconds = clock();
+
+        seconds = seconds / CLOCKS_PER_SEC;
+        if(seconds == 60) {
+            seconds = seconds - 60;
+            minutes++;
+            if(minutes == 60) {
+                minutes = 0;
+                hours++;
+                if(hours > 99) {
+                    printf("Maximale Zeit abgelaufen!");
+                    return;
+                }
+            }
+        }
+        goToXY(40, 0);
+        printf("Zeit: %02i:%02i:%02i", hours, minutes, seconds);
+    } while(input != 'p');
+
 }
