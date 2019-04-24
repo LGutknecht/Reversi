@@ -9,23 +9,24 @@
 **/
 #include "Reversi.h"
 /**THIS FILE HANDLES THE GENERAL GAME*/
-int mainMenu();
-void openSettings();
+int mainMenu(struct SaveFile *Save);
+void openSettings(struct SaveFile *Save);
+void setGameMode(struct SaveFile *Save, bool playerAgainstPlayer);
+void openManual();
 
-int main()
-{
+int main() {
     /**Intialising Variables*/
     struct SaveFile Save;
 
     InitSave(&Save);
     playerWin = false;
-    if(mainMenu() == 0) {
+    if(mainMenu(&Save) == 0) {
         return 0; ///the game will be closed after pressing 3 for 'beenden' in the Main Menu
     }
     ///the players sets alternately the stones
     do {
         /**Drawing Game Board*/
-        DrawGameBoard(Save);
+        DrawGameBoard(&Save);
         setGameStone(&Save);
         whichPlayerTurn(&Save);
     } while(playerWin == false);
@@ -35,7 +36,7 @@ Function: drawing of MainMenu with printf(), press number-Buttons to navigate, t
 Input: /
 Output: /
 */
-int mainMenu() {
+int mainMenu(struct SaveFile *Save) {
     char input;
     do {
         system("cls");
@@ -49,7 +50,7 @@ int mainMenu() {
         input = getch();
         if(input == '2') {///Button for settings is pressed
             system("cls");
-            openSettings();
+            openSettings(&(*Save));
         }
         if(input == '3') {///Button for exit the game
             return 0;
@@ -62,7 +63,7 @@ Function: settings of the program: Modes, who you play against (Computer or othe
 Input: /
 Output: /
 */
-void openSettings(){
+void openSettings(struct SaveFile *Save){
 
     char input;
     bool playerAgainstPlayer = true;
@@ -73,12 +74,12 @@ void openSettings(){
         printf("3: Zurueck\n");
         goToXY(0, 1);
         printf("1: Modus: ");
-        setGameMode(playerAgainstPlayer);
+        setGameMode(&(*Save),playerAgainstPlayer);
         input = getch();
         if(input == '1') {
             system("cls");
             playerAgainstPlayer = !playerAgainstPlayer;
-            setGameMode(playerAgainstPlayer);
+            setGameMode(&(*Save), playerAgainstPlayer);
             system("cls");
         }
         else if (input == '2'){
@@ -88,20 +89,21 @@ void openSettings(){
     } while(input != '3');
     system("cls");
 
-    mainMenu();///Go back to the Main Menu
+    mainMenu(&(*Save));///Go back to the Main Menu
 }
 /**
 Function: sets the Gamemode between Player vs Player and Player vs Computer
 Input: boolean playerAgainstPlayer
 Output: /
 */
-void setGameMode(bool playerAgainstPlayer) {
+void setGameMode(struct SaveFile *Save, bool playerAgainstPlayer) {
     if(playerAgainstPlayer == true) {
         printf("Spieler gegen Spieler");
+        (*Save).Mode = 0;
     }
     else {
-
         printf("Spieler gegen Computer");
+        (*Save).Mode = 1;
     }
 }
 /**

@@ -7,10 +7,15 @@
 #include <time.h>
 #include <stdbool.h>
 
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 struct SaveFile{
     int GameField[9][9];
     int Turn;
     int Time;
+    int Mode;
 };
 
 bool playerWin;
@@ -18,7 +23,7 @@ bool playerWin;
 void InitSave(struct SaveFile *Save);
 
 /** Function Prototypes from GameBoard */
-void DrawGameBoard(struct SaveFile Save);
+void DrawGameBoard(struct SaveFile *Save);
 
 /** Function Prototypes from GamePlay.c */
 void setGameStone(struct SaveFile *Save);

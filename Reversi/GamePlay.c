@@ -8,6 +8,8 @@ void setGameStone(struct SaveFile *Save);
 void goToXY(int column, int row);
 void whichPlayerTurn(struct SaveFile *Save);
 void checkStonePositionValidation(struct SaveFile *Save, int column, int row);
+void checkNumberOfPlayerStones(struct SaveFile *Save, int column, int row);
+int ValidateAndWriteStonePosition(struct SaveFile *Save, int column, int row);
 
 /**
 Function: navigate over the gamefield with W-A-S-D Buttons and set the stone with 'y'-Button, you can not move out of the gamefield
@@ -55,14 +57,15 @@ void setGameStone(struct SaveFile *Save) {
             }
             else {
                 system("cls");
+                goToXY(30, 15);
+                printf("Der Stein kann nicht an die aktuelle Position gesetzt werden!");
                 _sleep(300);
-                goToXY(30, 30);
-                printf("Der Stein kann nicht an die aktuelle Position gesetzt werden");
             }
         }
-        checkNumberOfPlayerStones(&(*Save));
+        if(input == 'w' || input == 'a' || input == 's' || input == 'd' || input == 'y') {
+          checkNumberOfPlayerStones(&(*Save), column, row);
+        }
     } while(input != 'y');
-
 }
 /**
 Function: sets the position of the cursor to a specific coordinate
@@ -91,14 +94,26 @@ void whichPlayerTurn(struct SaveFile *Save) {
     }
 }
 /**
-Function: checks, wether the choosen position of the stone is valid
-Input: struct Save, the column as Y Coordinate, the row as X Coordinate
-Output: returns false, if the position is not valid, true if it is valid
+Function: checks the number of the PlayerStones immediatly after a turn
+Input: struct Save, column and row of the cursor on the field
+Output: /
 */
-void checkStonePositionValidation(struct SaveFile *Save, int column, int row) {
-    if((*Save).GameField[column][row] == 1 || (*Save).GameField[column][row] == 2) {///is there already a stone at the choosen position?
-        return false;
+void checkNumberOfPlayerStones(struct SaveFile *Save, int column, int row) {
+    int numberPOne = 0, numberPTwo = 0;
+
+    for(int i = 0; i < 8; i++) {
+        for(int j = 0; j < 8; j++) {
+            if((*Save).GameField[i][j] == 1) {
+                numberPOne++;
+            }
+            else if((*Save).GameField[i][j] == 2) {
+                numberPTwo++;
+            }
+        }
     }
-    ///is there a stone at the opposite in any direction?
-    ///HERR GUTKNECHT, LÖSEN SIE DAS MAL
+    goToXY(20, 0);
+    printf("Spieler 1: %i", numberPOne);
+    goToXY(20,1);
+    printf("Spieler 2: %i", numberPTwo);
+    goToXY(column, row); ///going back to the coordinate where the cursor has been stand
 }
