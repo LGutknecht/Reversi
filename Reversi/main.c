@@ -23,7 +23,7 @@ int main() {
     if(mainMenu(&Save) == 0) {
         return 0; ///the game will be closed after pressing 3 for 'beenden' in the Main Menu
     }
-    ///the players sets alternately the stones
+    ///the players set alternately stones
     do {
         /**Drawing Game Board*/
         DrawGameBoard(&Save);
@@ -56,6 +56,8 @@ int mainMenu(struct SaveFile *Save) {
             return 0;
         }
     } while(input != '1');
+
+    return 1;
 }
 
 /**
@@ -68,13 +70,14 @@ void openSettings(struct SaveFile *Save){
     char input;
     bool playerAgainstPlayer = true;
     do {
+        system("cls");
         ///Settings Menu to set the play style: Player vs player OR Player vs Computer
         printf("Willkommen zu den Einstellungen!\n\n");
         printf("2: Regeln des Spiels\n");
         printf("3: Zurueck\n");
         goToXY(0, 1);
         printf("1: Modus: ");
-        setGameMode(&(*Save),playerAgainstPlayer);
+        setGameMode(&(*Save), playerAgainstPlayer);
         input = getch();
         if(input == '1') {
             system("cls");

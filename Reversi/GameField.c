@@ -1,6 +1,5 @@
 #include "Reversi.h"
 /**THIS FILE HANDLES THE GAMEBOARD INPUT AND THE GRAPHICS*/
-
 /**
 *   Declaring Function Prototypes
 **/

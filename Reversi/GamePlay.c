@@ -7,7 +7,6 @@
 void setGameStone(struct SaveFile *Save);
 void goToXY(int column, int row);
 void whichPlayerTurn(struct SaveFile *Save);
-void checkStonePositionValidation(struct SaveFile *Save, int column, int row);
 void checkNumberOfPlayerStones(struct SaveFile *Save);
 int ValidateAndWriteStonePosition(struct SaveFile *Save, int column, int row);
 void stopWatch(struct SaveFile *Save);
@@ -21,14 +20,14 @@ void setGameStone(struct SaveFile *Save) {
     int column = 1, row = 0; ///always starting turn in top left corner
     char input;
 
-    pthread_t time;/// Kick off a new thread
-    pthread_create(&time, NULL, void *(*stopwatch(arg))(void*), NULL);
+    //pthread_t time;/// Kick off a new thread
+    //pthread_create(&time, NULL, void *(*stopwatch(arg))(void*), NULL);
     goToXY(column, row);
     do {
         input = getch();
         if(input == 'w') {
             if(row > 0) {
-               row--;
+                row--;
             }
         }
         else if(input == 'a') {
@@ -46,8 +45,8 @@ void setGameStone(struct SaveFile *Save) {
                 column = column + 2;
             }
         }
-        //goToXY(1, 10);
-        //printf("X: %i, Y: %i, p: %i\n", column / 2, row, (*Save).Turn);
+        ///goToXY(1, 10);
+        ///printf("X: %i, Y: %i, p: %i\n", column / 2, row, (*Save).Turn);
         ///printf("%i", (*Save).GameField);
         goToXY(column, row); ///setting the stone at the choosen place of the field
         if(input == 'y') {
@@ -69,7 +68,7 @@ void setGameStone(struct SaveFile *Save) {
         if(input == 'w' || input == 'a' || input == 's' || input == 'd' || input == 'y') {
           checkNumberOfPlayerStones(&(*Save));
         }
-        stopWatch(&(*Save), input);
+        stopWatch(&(*Save));
         goToXY(column, row); ///going back to the coordinate where the cursor has been stand
     } while(input != 'y');
 }
@@ -126,27 +125,24 @@ void checkNumberOfPlayerStones(struct SaveFile *Save) {
 }
 
 void stopWatch(struct SaveFile *Save) {
-    int minutes = 0, hours = 0;
+    int minutes = 0, hours = 0, seconds = 0;
 
-    clock_t seconds;
-    do {
-        seconds = clock();
+    clock_t timeSinceStart;
+    timeSinceStart = clock(); ///returns the time in miliseconds since the programm has start
+    timeSinceStart = timeSinceStart / 1000; ///turning miliseconds to seconds
 
-        seconds = seconds / CLOCKS_PER_SEC;
-        if(seconds == 60) {
-            seconds = seconds - 60;
-            minutes++;
-            if(minutes == 60) {
-                minutes = 0;
-                hours++;
-                if(hours > 99) {
-                    printf("Maximale Zeit abgelaufen!");
-                    return;
-                }
-            }
-        }
-        goToXY(40, 0);
-        printf("Zeit: %02i:%02i:%02i", hours, minutes, seconds);
-    } while(input != 'p');
-
+    if(timeSinceStart >= 60) {
+        seconds = timeSinceStart - (60 * (timeSinceStart / 60)); ///calculating seconds which are greater than a minute
+    }
+    else {
+        seconds = timeSinceStart;
+    }
+    minutes = timeSinceStart / 60 % 60;
+    hours = minutes / 60 % 60;
+    if(hours == 99 && minutes == 60 && seconds == 60) {
+        printf("Maximale Spielzeit erreicht!");
+        return;
+    }
+    goToXY(40, 0);
+    printf("Zeit: %02ih:%02im:%02is", hours, minutes, seconds);
 }
