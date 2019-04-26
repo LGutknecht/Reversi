@@ -21,7 +21,7 @@ struct SaveFile{
     int Mode;
 };
 
-bool playerWin;
+bool playerWin, gamePaused;
 
 /// Function Prototypes from main.c
 int mainMenu(struct SaveFile *Save);
@@ -33,7 +33,7 @@ void openManual();
 void InitSave(struct SaveFile *Save);
 
 /** Function Prototypes from GameField.c */
-void DrawGameBoard(struct SaveFile *Save);
+void drawGameBoard(struct SaveFile *Save);
 
 /** Function Prototypes from GamePlay.c */
 void setGameStone(struct SaveFile *Save);

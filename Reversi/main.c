@@ -20,13 +20,15 @@ int main() {
 
     InitSave(&Save);
     playerWin = false;
+    gamePaused = false;
+
     if(mainMenu(&Save) == 0) {
         return 0; ///the game will be closed after pressing 3 for 'beenden' in the Main Menu
     }
     ///the players set alternately stones
     do {
         /**Drawing Game Board*/
-        DrawGameBoard(&Save);
+        drawGameBoard(&Save);
         setGameStone(&Save);
         whichPlayerTurn(&Save);
     } while(playerWin == false);
@@ -73,8 +75,9 @@ void openSettings(struct SaveFile *Save){
         system("cls");
         ///Settings Menu to set the play style: Player vs player OR Player vs Computer
         printf("Willkommen zu den Einstellungen!\n\n");
-        printf("2: Regeln des Spiels\n");
-        printf("3: Zurueck\n");
+        printf("2: Regeln von Reversi\n");
+        printf("3: Steuerung des Spiels\n");
+        printf("4: Zurueck\n");
         goToXY(0, 1);
         printf("1: Modus: ");
         setGameMode(&(*Save), playerAgainstPlayer);
@@ -89,7 +92,11 @@ void openSettings(struct SaveFile *Save){
             system("cls");
             openManual();
         }
-    } while(input != '3');
+        if(input == '3') {
+            system("cls");
+            openControls();
+        }
+    } while(input != '4');
     system("cls");
 
     mainMenu(&(*Save));///Go back to the Main Menu
@@ -138,4 +145,30 @@ void openManual() {
         input = getch();
         system("cls");
     } while (input != '1');
+}
+
+void openControls() {
+
+    char input;
+    do {
+        for(int i = 0; i < 50; i++) {
+            printf("~");
+        }
+        printf("Steuerung des Spiels");
+        for(int i = 0; i < 50; i++) {
+            printf("~");
+        }
+        printf("\n\n");
+        printf(" Bewegung im Spiel\n\n");
+        printf(" W = NACH OBEN\n");
+        printf(" S = NACH UNTEN\n");
+        printf(" A = NACH LINKS\n");
+        printf(" D = NACH RECHTS\n\n");
+        printf(" Einloggen/Pausieren\\n\n");
+        printf(" Y = SPIELSTEIN SETZEN\n");
+        printf(" P = SPIEL PAUSIEREN/FORTSETZEN\n\n");
+        printf("1: Zurueck");
+        input = getch();
+        system("cls");
+    } while(input != '1');
 }

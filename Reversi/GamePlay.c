@@ -68,6 +68,9 @@ void setGameStone(struct SaveFile *Save) {
         if(input == 'w' || input == 'a' || input == 's' || input == 'd' || input == 'y') {
           checkNumberOfPlayerStones(&(*Save));
         }
+        if(input == 'p') {
+            gamePaused = !gamePaused;
+        }
         stopWatch(&(*Save));
         goToXY(column, row); ///going back to the coordinate where the cursor has been stand
     } while(input != 'y');
@@ -116,33 +119,58 @@ void checkNumberOfPlayerStones(struct SaveFile *Save) {
             }
         }
     }
-    goToXY(20, 0);
-    printf("Score");
-    goToXY(20, 1);
-    printf("Spieler 1: %i", numberPOne);
-    goToXY(20, 2);
-    printf("Spieler 2: %i", numberPTwo);
+    goToXY(27, 3);
+    printf("SCORE");
+    goToXY(22, 4);
+    printf("Spieler BLAU: %2i", numberPOne);
+    goToXY(22, 5);
+    printf("Spieler ROT:  %2i", numberPTwo);
 }
 
 void stopWatch(struct SaveFile *Save) {
-    int minutes = 0, hours = 0, seconds = 0;
+    int minutes = 0, hours = 0, seconds = 0, pseconds = 0, timeSinceStart = 0, timeSincePaused = 0;
+    clock_t time;
+    time = clock();///returns the time in miliseconds since the programm has start
 
-    clock_t timeSinceStart;
-    timeSinceStart = clock(); ///returns the time in miliseconds since the programm has start
-    timeSinceStart = timeSinceStart / 1000; ///turning miliseconds to seconds
+    if(!gamePaused) {
+        timeSincePaused = 0;
+        timeSinceStart = time;
+        timeSinceStart = timeSinceStart / 1000; ///turning miliseconds to seconds
 
-    if(timeSinceStart >= 60) {
-        seconds = timeSinceStart - (60 * (timeSinceStart / 60)); ///calculating seconds which are greater than a minute
+        if(timeSinceStart >= 60) {
+            seconds = timeSinceStart - (60 * (timeSinceStart / 60)); ///calculating seconds when the time is greater than a minute
+        }
+        else {
+            seconds = timeSinceStart;
+        }
+        minutes = timeSinceStart / 60 % 60;
+        hours = minutes / 60 % 60;
     }
     else {
-        seconds = timeSinceStart;
+        timeSincePaused = time - timeSinceStart;
+        timeSincePaused = timeSincePaused / 1000;
+        pseconds = timeSincePaused;
+        /**if(timeSincePaused >= 60) {
+        seconds = timeSincePaused - (60 * (timeSincePaused / 60)); ///calculating seconds when the time is greater than a minute
+        }
+        else {
+            seconds = timeSincePaused;
+        }
+        minutes = timeSincePaused / 60 % 60;
+        hours = minutes / 60 % 60;*/
     }
-    minutes = timeSinceStart / 60 % 60;
-    hours = minutes / 60 % 60;
     if(hours == 99 && minutes == 60 && seconds == 60) {
         printf("Maximale Spielzeit erreicht!");
         return;
     }
-    goToXY(40, 0);
-    printf("Zeit: %02ih:%02im:%02is", hours, minutes, seconds);
+    goToXY(21, 1);
+    if(gamePaused) {
+
+        printf("Zeit: %i        ", pseconds);
+        //printf("Zeit: %02ih:%02im:%02is", hours, minutes, seconds);
+    }
+    else {
+        printf("Zeit: %i        ", seconds);
+        //printf("Zeit: %02ih:%02im:%02is", hours, minutes, seconds);
+    }
 }
