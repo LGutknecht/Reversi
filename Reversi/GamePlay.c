@@ -20,8 +20,8 @@ void setGameStone(struct SaveFile *Save) {
     int column = 1, row = 0; ///always starting turn in top left corner
     char input;
 
-    //pthread_t time;/// Kick off a new thread
-    //pthread_create(&time, NULL, void *(*stopwatch(arg))(void*), NULL);
+    _beginthread(stopWatch, 0, &(*Save));
+
     goToXY(column, row);
     do {
         input = getch();
@@ -71,7 +71,6 @@ void setGameStone(struct SaveFile *Save) {
         if(input == 'p') {
             gamePaused = !gamePaused;
         }
-        stopWatch(&(*Save));
         goToXY(column, row); ///going back to the coordinate where the cursor has been stand
     } while(input != 'y');
 }
@@ -130,26 +129,24 @@ void checkNumberOfPlayerStones(struct SaveFile *Save) {
 void stopWatch(struct SaveFile *Save) {
     int minutes = 0, hours = 0, seconds = 0;
 
-    Sleep(1000);
-    seconds++;
-    if(seconds == 60) {
-        seconds = 0;
-        minutes++;
-        if(minutes == 60) {
-            hours++;
-            if(hours == 99) {
-                printf("Maximale Spielzeit erreicht!");
-                return;
+    while(1) {
+        Sleep(1000);
+        if(!gamePaused) {
+           seconds++;
+           (*Save).Time++;
+        }
+        if(seconds == 60) {
+            seconds = 0;
+            minutes++;
+            if(minutes == 60) {
+                hours++;
+                if(hours == 99) {
+                    printf("Maximale Spielzeit erreicht!");
+                    return;
+                }
             }
         }
+        goToXY(21, 1);
+        printf("Zeit: %02ih:%02im:%02is", hours, minutes, seconds);
     }
-    /**if(gamePaused) {
-
-
-        //printf("Zeit: %02ih:%02im:%02is", hours, minutes, seconds);
-    }
-    else {
-        printf("Zeit: %i        ", );
-        //printf("Zeit: %02ih:%02im:%02is", hours, minutes, seconds);
-    }*/
 }

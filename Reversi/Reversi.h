@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <conio.h> ///Needed for getch() function
 #include <windows.h>/** Needed for COORD structure*/
-#include <pthread.h>///Using a parallel thread for the stopwatch
+#include <process.h>///Using for a parallel thread for the stopwatch
 #include <time.h>
 #include <stdbool.h>
 

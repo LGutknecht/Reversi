@@ -17,7 +17,7 @@ void drawGameBoard(struct SaveFile *Save) {
             switch((*Save).GameField[i][k]) {
                 case 0: printf("%2c", '-'); break;
                 case 1: printf("%2c" , 'O'); break;
-                case 2: printf( "%2c" , 'O'); break;
+                case 2: printf( "%2c" , 'X'); break;
             }
         }
     printf("\n");
