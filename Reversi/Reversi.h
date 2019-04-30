@@ -24,23 +24,23 @@ struct SaveFile{
 bool playerWin, gamePaused;
 
 /// Function Prototypes from main.c
-int mainMenu(struct SaveFile *Save);
-void openSettings(struct SaveFile *Save);
-void setGameMode(struct SaveFile *Save, bool playerAgainstPlayer);
+int mainMenu(struct SaveFile *gameData);
+void openSettings(struct SaveFile *gameData);
+void setGameMode(struct SaveFile *gameData, bool playerAgainstPlayer);
 void openManual();
 
 /**  Function Prototypes from SaveManagement.c */
-void InitSave(struct SaveFile *Save);
+void InitSave(struct SaveFile *gameData);
 
 /** Function Prototypes from GameField.c */
-void drawGameBoard(struct SaveFile *Save);
+void drawGameBoard(struct SaveFile *gameData);
 
 /** Function Prototypes from GamePlay.c */
-void setGameStone(struct SaveFile *Save);
+void setGameStone(struct SaveFile *gameData);
 void goToXY(int column, int row);
-void whichPlayerTurn(struct SaveFile *Save);
-void checkNumberOfPlayerStones(struct SaveFile *Save);
-int ValidateAndWriteStonePosition(struct SaveFile *Save, int column, int row);
-void stopWatch(struct SaveFile *Save);
+void whichPlayerTurn(struct SaveFile *gameData);
+void checkNumberOfPlayerStones(struct SaveFile *gameData);
+int ValidateAndWriteStonePosition(struct SaveFile *gameData, int column, int row);
+void stopWatch(struct SaveFile *gameData);
 
 #endif /* REVERSI_H_INCLUDED*/

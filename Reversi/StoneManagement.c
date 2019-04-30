@@ -2,7 +2,7 @@
 ///THIS FILE HANDLES THE STONE PLACEMENT AND VALIDATION
 
 ///FUNCTION PROTOTYPES
-int ValidateAndWriteStonePosition(struct SaveFile *Save, int column, int row);
+int ValidateAndWriteStonePosition(struct SaveFile *gameData, int column, int row);
 
 int CheckStoneRight(struct SaveFile Save, int column, int row);
 int CheckStoneLeft(struct SaveFile Save, int column, int row);
@@ -13,56 +13,56 @@ int CheckStoneUpLeft(struct SaveFile Save, int column, int row);
 int CheckStoneDownRight(struct SaveFile Save, int column, int row);
 int CheckStoneDownLeft(struct SaveFile Save, int column, int row);
 
-void WriteStoneRight(struct SaveFile *Save, int column, int row);
-void WriteStoneLeft(struct SaveFile *Save, int column, int row);
-void WriteStoneUp(struct SaveFile *Save, int column, int row);
-void WriteStoneDown(struct SaveFile *Save, int column, int row);
-void WriteStoneUpRight(struct SaveFile *Save, int column, int row);
-void WriteStoneUpLeft(struct SaveFile *Save, int column, int row);
-void WriteStoneDownRight(struct SaveFile *Save, int column, int row);
-void WriteStoneDownLeft(struct SaveFile *Save, int column, int row);
+void WriteStoneRight(struct SaveFile *gameData, int column, int row);
+void WriteStoneLeft(struct SaveFile *gameData, int column, int row);
+void WriteStoneUp(struct SaveFile *gameData, int column, int row);
+void WriteStoneDown(struct SaveFile *gameData, int column, int row);
+void WriteStoneUpRight(struct SaveFile *gameData, int column, int row);
+void WriteStoneUpLeft(struct SaveFile *gameData, int column, int row);
+void WriteStoneDownRight(struct SaveFile *gameData, int column, int row);
+void WriteStoneDownLeft(struct SaveFile *gameData, int column, int row);
 
-int ValidateAndWriteStonePosition(struct SaveFile *Save, int column, int row) {
+int ValidateAndWriteStonePosition(struct SaveFile *gameData, int column, int row) {
     ///Declaring Variables
     int StoneValidated = 0;
 
     ///Is the current field occupied by a stone?
-    if((*Save).GameField[column][row] == 1 || (*Save).GameField[column][row] == 2) {///is there already a stone at the choosen position?
+    if((*gameData).GameField[column][row] == 1 || (*gameData).GameField[column][row] == 2) {///is there already a stone at the choosen position?
         return false;
     }
     ///is there a stone at the opposite in any direction?
-    if(CheckStoneRight((*Save), column, row) == 1) {
+    if(CheckStoneRight((*gameData), column, row) == 1) {
         ///Writing Stones in the direction a stone is found
-        WriteStoneRight(&(*Save), column, row);
+        WriteStoneRight(&(*gameData), column, row);
         ///Adding a point to verify a stones have been placed
         StoneValidated += 1;
     }
-    if(CheckStoneLeft((*Save), column, row) == 1) {
-        WriteStoneLeft(&(*Save), column, row);
+    if(CheckStoneLeft((*gameData), column, row) == 1) {
+        WriteStoneLeft(&(*gameData), column, row);
         StoneValidated += 1;
     }
-    if(CheckStoneUp((*Save), column, row) == 1) {
-        WriteStoneUp(&(*Save), column, row);
+    if(CheckStoneUp((*gameData), column, row) == 1) {
+        WriteStoneUp(&(*gameData), column, row);
         StoneValidated += 1;
     }
-    if(CheckStoneDown((*Save), column, row) == 1) {
-        WriteStoneRight(&(*Save), column, row);
+    if(CheckStoneDown((*gameData), column, row) == 1) {
+        WriteStoneRight(&(*gameData), column, row);
         StoneValidated += 1;
     }
-    if(CheckStoneUpRight((*Save), column, row) == 1) {
-        WriteStoneUpRight(&(*Save), column, row);
+    if(CheckStoneUpRight((*gameData), column, row) == 1) {
+        WriteStoneUpRight(&(*gameData), column, row);
         StoneValidated += 1;
     }
-    if(CheckStoneUpLeft((*Save), column, row) == 1) {
-        WriteStoneUpLeft(&(*Save), column, row);
+    if(CheckStoneUpLeft((*gameData), column, row) == 1) {
+        WriteStoneUpLeft(&(*gameData), column, row);
         StoneValidated += 1;
     }
-    if(CheckStoneDownRight((*Save), column, row) == 1) {
-        WriteStoneDownRight(&(*Save), column, row);
+    if(CheckStoneDownRight((*gameData), column, row) == 1) {
+        WriteStoneDownRight(&(*gameData), column, row);
         StoneValidated += 1;
     }
-    if(CheckStoneDownLeft((*Save), column, row) == 1) {
-        WriteStoneDownLeft(&(*Save), column, row);
+    if(CheckStoneDownLeft((*gameData), column, row) == 1) {
+        WriteStoneDownLeft(&(*gameData), column, row);
         StoneValidated += 1;
     }
     ///Return of Process Status (1 for Stones placed, 0 for invalid Place)
@@ -195,44 +195,44 @@ int CheckStoneDownRight(struct SaveFile Save, int column, int row) {
 *   THIS NEXT BLOCK OF 4 FUNCTIONS WRITES STONES OF THE OWN COLOUR IN HORIZONTAL AND PERPENDICULAR DIRECTION
 **/
 ///BLOCK START
-void WriteStoneRight(struct SaveFile *Save, int column, int row) {
-    int PlayerTurn = (*Save).Turn;
+void WriteStoneRight(struct SaveFile *gameData, int column, int row) {
+    int PlayerTurn = (*gameData).Turn;
     column++;
     do
     {
-        (*Save).GameField[row][column] = PlayerTurn;
+        (*gameData).GameField[row][column] = PlayerTurn;
         column++;
-    }while((*Save).GameField[row][column] != PlayerTurn);
+    }while((*gameData).GameField[row][column] != PlayerTurn);
 }
 
-void WriteStoneLeft(struct SaveFile *Save, int column, int row) {
-    int PlayerTurn = (*Save).Turn;
+void WriteStoneLeft(struct SaveFile *gameData, int column, int row) {
+    int PlayerTurn = (*gameData).Turn;
     column--;
     do
     {
-        (*Save).GameField[row][column] = PlayerTurn;
+        (*gameData).GameField[row][column] = PlayerTurn;
         column--;
-    }while((*Save).GameField[row][column] != PlayerTurn);
+    }while((*gameData).GameField[row][column] != PlayerTurn);
 }
 
-void WriteStoneUp(struct SaveFile *Save, int column, int row) {
-    int PlayerTurn = (*Save).Turn;
+void WriteStoneUp(struct SaveFile *gameData, int column, int row) {
+    int PlayerTurn = (*gameData).Turn;
     row--;
     do
     {
-        (*Save).GameField[row][column] = PlayerTurn;
+        (*gameData).GameField[row][column] = PlayerTurn;
         row--;
-    }while((*Save).GameField[row][column] != PlayerTurn);
+    }while((*gameData).GameField[row][column] != PlayerTurn);
 }
 
-void WriteStoneDown(struct SaveFile *Save, int column, int row) {
-    int PlayerTurn = (*Save).Turn;
+void WriteStoneDown(struct SaveFile *gameData, int column, int row) {
+    int PlayerTurn = (*gameData).Turn;
     row++;
     do
     {
-        (*Save).GameField[row][column] = PlayerTurn;
+        (*gameData).GameField[row][column] = PlayerTurn;
         row++;
-    }while((*Save).GameField[row][column] != PlayerTurn);
+    }while((*gameData).GameField[row][column] != PlayerTurn);
 }
 ///BLOCK END
 
@@ -240,51 +240,51 @@ void WriteStoneDown(struct SaveFile *Save, int column, int row) {
 *   THIS NEXT BLOCK OF 4 FUNCTIONS WRITES STONES OF THE OWN COLOUR IN DIAGONAL DIRECTION
 **/
 ///BLOCK START
-void WriteStoneUpLeft(struct SaveFile *Save, int column, int row) {
-    int PlayerTurn = (*Save).Turn;
+void WriteStoneUpLeft(struct SaveFile *gameData, int column, int row) {
+    int PlayerTurn = (*gameData).Turn;
     row--;
     column--;
     do
     {
-        (*Save).GameField[row][column] = PlayerTurn;
+        (*gameData).GameField[row][column] = PlayerTurn;
         row--;
         column--;
-    }while((*Save).GameField[row][column] != PlayerTurn);
+    }while((*gameData).GameField[row][column] != PlayerTurn);
 }
 
-void WriteStoneUpRight(struct SaveFile *Save, int column, int row) {
-    int PlayerTurn = (*Save).Turn;
+void WriteStoneUpRight(struct SaveFile *gameData, int column, int row) {
+    int PlayerTurn = (*gameData).Turn;
     row--;
     column++;
     do
     {
-        (*Save).GameField[row][column] = PlayerTurn;
+        (*gameData).GameField[row][column] = PlayerTurn;
         row--;
         column++;
-    }while((*Save).GameField[row][column] != PlayerTurn);
+    }while((*gameData).GameField[row][column] != PlayerTurn);
 }
 
-void WriteStoneDownLeft(struct SaveFile *Save, int column, int row) {
-    int PlayerTurn = (*Save).Turn;
+void WriteStoneDownLeft(struct SaveFile *gameData, int column, int row) {
+    int PlayerTurn = (*gameData).Turn;
     row++;
     column--;
     do
     {
-        (*Save).GameField[row][column] = PlayerTurn;
+        (*gameData).GameField[row][column] = PlayerTurn;
         row++;
         column--;
-    }while((*Save).GameField[row][column] != PlayerTurn);
+    }while((*gameData).GameField[row][column] != PlayerTurn);
 }
 
-void WriteStoneDownRight(struct SaveFile *Save, int column, int row) {
-    int PlayerTurn = (*Save).Turn;
+void WriteStoneDownRight(struct SaveFile *gameData, int column, int row) {
+    int PlayerTurn = (*gameData).Turn;
     row++;
     column++;
     do
     {
-        (*Save).GameField[row][column] = PlayerTurn;
+        (*gameData).GameField[row][column] = PlayerTurn;
         row++;
         column++;
-    }while((*Save).GameField[row][column] != PlayerTurn);
+    }while((*gameData).GameField[row][column] != PlayerTurn);
 }
 ///BLOCK END

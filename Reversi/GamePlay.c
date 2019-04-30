@@ -1,22 +1,22 @@
 #include "Reversi.h"
-/**THIS FILE HANDLES THE COURSE OF THE GAME*/
+///THIS FILE HANDLES THE COURSE OF THE GAME
 
 /**
 *   Declaring Function Prototypes
 **/
-void setGameStone(struct SaveFile *Save);
+void setGameStone(struct SaveFile *gameData);
 void goToXY(int column, int row);
-void whichPlayerTurn(struct SaveFile *Save);
-void checkNumberOfPlayerStones(struct SaveFile *Save);
-int ValidateAndWriteStonePosition(struct SaveFile *Save, int column, int row);
-void stopWatch(struct SaveFile *Save);
+void whichPlayerTurn(struct SaveFile *gameData);
+void checkNumberOfPlayerStones(struct SaveFile *gameData);
+int ValidateAndWriteStonePosition(struct SaveFile *gameData, int column, int row);
+void stopWatch(struct SaveFile *gameData);
 
 /**
 Function: navigate over the gamefield with W-A-S-D Buttons and set the stone with 'y'-Button, you can not move out of the gamefield
 Input: struct Save
 Output: /
 */
-void setGameStone(struct SaveFile *Save) {
+void setGameStone(struct SaveFile *gameData) {
     int column = 1, row = 0; ///always starting turn in top left corner
     char input;
 
@@ -44,26 +44,26 @@ void setGameStone(struct SaveFile *Save) {
                     column = column + 2;
                 }
             }
-        }
-        goToXY(column, row); ///setting the stone at the choosen place of the field
-        if(input == 'y') {
-            if(ValidateAndWriteStonePosition(&(*Save), column, row) == 1) {
-                if((*Save).Turn == 1) {
-                    (*Save).GameField[row][column / 2] = 1;
+            goToXY(column, row); ///setting the stone at the choosen place of the field
+            if(input == 'y') {
+                if(ValidateAndWriteStonePosition(&(*gameData), column, row) == 1) {
+                    if((*gameData).Turn == 1) {
+                        (*gameData).GameField[row][column / 2] = 1;
+                    }
+                    else {
+                        (*gameData).GameField[row][column / 2] = 2;
+                    }
                 }
                 else {
-                    (*Save).GameField[row][column / 2] = 2;
+                    system("cls");
+                    goToXY(1, 20);
+                    printf("Der Stein kann nicht an die aktuelle Position gesetzt werden!");
+                    Sleep(1000);
                 }
-            }
-            else {
-                system("cls");
-                goToXY(1, 20);
-                printf("Der Stein kann nicht an die aktuelle Position gesetzt werden!");
-                Sleep(1000);
             }
         }
         if(input == 'w' || input == 'a' || input == 's' || input == 'd' || input == 'y') {
-          checkNumberOfPlayerStones(&(*Save));
+          checkNumberOfPlayerStones(&(*gameData));
         }
         if(input == 'p') {
             gamePaused = !gamePaused;
@@ -93,12 +93,12 @@ Function: changes the player turn, if player one was at turn, player two is now 
 Input: struct Save
 Output: /
 */
-void whichPlayerTurn(struct SaveFile *Save) {
-    if((*Save).Turn == 1) {
-        (*Save).Turn = 2;
+void whichPlayerTurn(struct SaveFile *gameData) {
+    if((*gameData).Turn == 1) {
+        (*gameData).Turn = 2;
     }
     else {
-        (*Save).Turn = 1;
+        (*gameData).Turn = 1;
     }
 }
 /**
@@ -106,15 +106,15 @@ Function: checks the number of the PlayerStones immediatly after a turn
 Input: struct Save, column and row of the cursor on the field
 Output: /
 */
-void checkNumberOfPlayerStones(struct SaveFile *Save) {
+void checkNumberOfPlayerStones(struct SaveFile *gameData) {
     int numberPOne = 0, numberPTwo = 0;
 
     for(int i = 0; i < 8; i++) {
         for(int j = 0; j < 8; j++) {
-            if((*Save).GameField[i][j] == 1) {
+            if((*gameData).GameField[i][j] == 1) {
                 numberPOne++;
             }
-            else if((*Save).GameField[i][j] == 2) {
+            else if((*gameData).GameField[i][j] == 2) {
                 numberPTwo++;
             }
         }
@@ -131,14 +131,14 @@ Funciton: shows the gametime parallel to the gameplay, realised in a separate th
 Input: struct Save to write the time in it
 Output: /
 */
-void stopWatch(struct SaveFile *Save) {
+void stopWatch(struct SaveFile *gameData) {
     int minutes = 0, hours = 0, seconds = 0;
 
     while(1) {
         Sleep(1000);
         if(!gamePaused) {
             seconds++;
-            (*Save).Time++;
+            (*gameData).Time++;
         }
         else {
             goToXY(1, 9);
@@ -148,6 +148,7 @@ void stopWatch(struct SaveFile *Save) {
             seconds = 0;
             minutes++;
             if(minutes == 60) {
+                minutes = 0;
                 hours++;
                 if(hours == 99) {
                     printf("Maximale Spielzeit erreicht!");
