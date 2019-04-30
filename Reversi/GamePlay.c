@@ -20,34 +20,31 @@ void setGameStone(struct SaveFile *Save) {
     int column = 1, row = 0; ///always starting turn in top left corner
     char input;
 
-    _beginthread(stopWatch, 0, &(*Save));
-
     goToXY(column, row);
     do {
         input = getch();
-        if(input == 'w') {
-            if(row > 0) {
-                row--;
+        if(!gamePaused) {
+            if(input == 'w') {
+                if(row > 0) {
+                    row--;
+                }
+            }
+            else if(input == 'a') {
+                if(column > 1) {
+                    column = column - 2;
+                }
+            }
+            else if(input == 's') {
+                if(row < 7) {
+                    row++;
+                }
+            }
+            else if(input == 'd') {
+                if(column < 15) {
+                    column = column + 2;
+                }
             }
         }
-        else if(input == 'a') {
-            if(column > 1) {
-                column = column - 2;
-            }
-        }
-        else if(input == 's') {
-            if(row < 7) {
-                row++;
-            }
-        }
-        else if(input == 'd') {
-            if(column < 15) {
-                column = column + 2;
-            }
-        }
-        ///goToXY(1, 10);
-        ///printf("X: %i, Y: %i, p: %i\n", column / 2, row, (*Save).Turn);
-        ///printf("%i", (*Save).GameField);
         goToXY(column, row); ///setting the stone at the choosen place of the field
         if(input == 'y') {
             if(ValidateAndWriteStonePosition(&(*Save), column, row) == 1) {
@@ -70,6 +67,10 @@ void setGameStone(struct SaveFile *Save) {
         }
         if(input == 'p') {
             gamePaused = !gamePaused;
+            if(!gamePaused) {
+                goToXY(1, 9);
+                printf("               ");
+            }
         }
         goToXY(column, row); ///going back to the coordinate where the cursor has been stand
     } while(input != 'y');
@@ -125,15 +126,23 @@ void checkNumberOfPlayerStones(struct SaveFile *Save) {
     goToXY(22, 5);
     printf("Spieler ROT:  %2i", numberPTwo);
 }
-
+/**
+Funciton: shows the gametime parallel to the gameplay, realised in a separate thread
+Input: struct Save to write the time in it
+Output: /
+*/
 void stopWatch(struct SaveFile *Save) {
     int minutes = 0, hours = 0, seconds = 0;
 
     while(1) {
         Sleep(1000);
         if(!gamePaused) {
-           seconds++;
-           (*Save).Time++;
+            seconds++;
+            (*Save).Time++;
+        }
+        else {
+            goToXY(1, 9);
+            printf("Spiel pausiert!");
         }
         if(seconds == 60) {
             seconds = 0;
@@ -142,7 +151,7 @@ void stopWatch(struct SaveFile *Save) {
                 hours++;
                 if(hours == 99) {
                     printf("Maximale Spielzeit erreicht!");
-                    return;
+                    break;
                 }
             }
         }

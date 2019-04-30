@@ -27,6 +27,7 @@ int main() {
         return 0; ///the game will be closed after pressing 3 for 'beenden' in the Main Menu
     }
     ///the players set alternately stones
+    _beginthread(stopWatch, 0, &Save);
     do {
         /**Drawing Game Board*/
         drawGameBoard(&Save);
