@@ -9,9 +9,9 @@
 #include <stdbool.h>
 
 ///defining the colors for the gamefield
-#define ANSI_COLOR_RED     "\x1b[31m" ///RED
-#define ANSI_COLOR_BLUE    "\x1b[34m" ///BLUE
-#define ANSI_COLOR_RESET   "\x1b[0m"  ///RESET = WHITE
+//#define ANSI_COLOR_RED     "\x1b[31m" ///RED
+//#define ANSI_COLOR_BLUE    "\x1b[34m" ///BLUE
+//#define ANSI_COLOR_RESET   "\x1b[0m"  ///RESET = WHITE
 
 ///Declaration of the struct in the program
 struct SaveFile{

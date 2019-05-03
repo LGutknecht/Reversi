@@ -16,8 +16,8 @@ void drawGameBoard(struct SaveFile *Save) {
         for(int k = 0; k < 8; k++) {
             switch((*Save).GameField[i][k]) {
                 case 0: printf("%2c", '-'); break;
-                case 1: printf(ANSI_COLOR_BLUE "%2c" ANSI_COLOR_RESET, 'O'); break;
-                case 2: printf(ANSI_COLOR_RED "%2c" ANSI_COLOR_RESET, 'O'); break;
+                case 1: printf("%2c" , 'O'); break;
+                case 2: printf( "%2c" , 'O'); break;
             }
         }
     printf("\n");

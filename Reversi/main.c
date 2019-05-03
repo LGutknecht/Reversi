@@ -13,6 +13,7 @@ int mainMenu(struct SaveFile *Save);
 void openSettings(struct SaveFile *Save);
 void setGameMode(struct SaveFile *Save, bool playerAgainstPlayer);
 void openManual();
+void openControls();
 
 int main() {
     /**Intialising Variables*/
