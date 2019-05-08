@@ -10,6 +10,7 @@ void whichPlayerTurn(struct SaveFile *gameData);
 void checkNumberOfPlayerStones(struct SaveFile *gameData);
 int ValidateAndWriteStonePosition(struct SaveFile *gameData, int column, int row);
 void stopWatch(struct SaveFile *gameData);
+void saveGame(struct SaveFile *gameData);
 
 /**
 Function: navigate over the gamefield with W-A-S-D Buttons and set the stone with 'y'-Button, you can not move out of the gamefield
@@ -60,6 +61,10 @@ void setGameStone(struct SaveFile *gameData) {
                     printf("Der Stein kann nicht an die aktuelle Position gesetzt werden!");
                     Sleep(1000);
                 }
+            }
+            if(input == 'o') {
+                ///Save the whole gamestate in a file
+                saveGame(&(*gameData));
             }
         }
         if(input == 'w' || input == 'a' || input == 's' || input == 'd' || input == 'y') {
@@ -158,5 +163,29 @@ void stopWatch(struct SaveFile *gameData) {
         }
         goToXY(21, 1);
         printf("Zeit: %02ih:%02im:%02is", hours, minutes, seconds);
+    }
+}
+
+void saveGame(struct SaveFile *gameData) {
+    FILE *filepointer;
+    char
+
+    filepointer = fopen("gameState.txt", "w");
+
+    if(filepointer == NULL) {
+        goToXY(1, 10);
+        printf("Die Datei kann nicht geöffnet werden!");
+    }
+    else {
+        ///write data in the file
+        for(int i = 0; i < 8; i++) {
+                for(int j = 0; j < 8; j++) {
+                    fprintf(filepointer, "%i, ", gameData.GameField[i][j]);
+                }
+            fprintf(filepointer, "\n");
+        }
+        fprintf(filepointer, "%i\n", gameData.Mode);
+        fprintf(filepointer, "%i\n", gameData.Time);
+        fprintf(filepointer, "%i\n", gameData.Turn);
     }
 }
