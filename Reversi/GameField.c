@@ -7,7 +7,7 @@ void drawGameBoard(struct SaveFile *gameData);
 void drawScoreArea();
 /**
 Function:draw of the gamefield, drawing game with gamefield data
-Input: struct Save, globales struct
+Input: struct gameData, globales struct
 Output: /
 */
 void drawGameBoard(struct SaveFile *gameData) {

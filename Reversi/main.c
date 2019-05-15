@@ -17,24 +17,24 @@ void openControls();
 
 int main() {
     ///declaration of the struct
-    struct SaveFile Save;
+    struct SaveFile gameData;
 
     ///Intialising Variables
     playerWin = false;
     gamePaused = false;
 
-    InitSave(&Save);
+    InitSave(&gameData);
 
-    if(mainMenu(&Save) == 0) {
+    if(mainMenu(&gameData) == 0) {
         return 0; ///the game will be closed after pressing 3 for 'beenden' in the Main Menu
     }
     ///the players set alternately stones
-    _beginthread(stopWatch, 0, &Save);
+    _beginthread(stopWatch, 0, &gameData);
     do {
         /**Drawing Game Board*/
-        drawGameBoard(&Save);
-        setGameStone(&Save);
-        whichPlayerTurn(&Save);
+        drawGameBoard(&gameData);
+        setGameStone(&gameData);
+        whichPlayerTurn(&gameData);
     } while(playerWin == false);
 }
 /**

@@ -1,290 +1,430 @@
-#include "Reversi.h"
-///THIS FILE HANDLES THE STONE PLACEMENT AND VALIDATION
+#include "StoneManagement.h"
+///Declaring Global Variables
+int FlipBoard[8][8];
 
-///FUNCTION PROTOTYPES
-int ValidateAndWriteStonePosition(struct SaveFile *gameData, int column, int row);
-
-int CheckStoneRight(struct SaveFile Save, int column, int row);
-int CheckStoneLeft(struct SaveFile Save, int column, int row);
-int CheckStoneUp(struct SaveFile Save, int column, int row);
-int CheckStoneDown(struct SaveFile Save, int column, int row);
-int CheckStoneUpRight(struct SaveFile Save, int column, int row);
-int CheckStoneUpLeft(struct SaveFile Save, int column, int row);
-int CheckStoneDownRight(struct SaveFile Save, int column, int row);
-int CheckStoneDownLeft(struct SaveFile Save, int column, int row);
-
-void WriteStoneRight(struct SaveFile *gameData, int column, int row);
-void WriteStoneLeft(struct SaveFile *gameData, int column, int row);
-void WriteStoneUp(struct SaveFile *gameData, int column, int row);
-void WriteStoneDown(struct SaveFile *gameData, int column, int row);
-void WriteStoneUpRight(struct SaveFile *gameData, int column, int row);
-void WriteStoneUpLeft(struct SaveFile *gameData, int column, int row);
-void WriteStoneDownRight(struct SaveFile *gameData, int column, int row);
-void WriteStoneDownLeft(struct SaveFile *gameData, int column, int row);
-
-int ValidateAndWriteStonePosition(struct SaveFile *gameData, int column, int row) {
-    ///Declaring Variables
-    int StoneValidated = 0;
-
-    ///Is the current field occupied by a stone?
-    if((*gameData).GameField[column][row] == 1 || (*gameData).GameField[column][row] == 2) {///is there already a stone at the choosen position?
-        return false;
-    }
-    ///is there a stone at the opposite in any direction?
-    if(CheckStoneRight((*gameData), column, row) == 1) {
-        ///Writing Stones in the direction a stone is found
-        WriteStoneRight(&(*gameData), column, row);
-        ///Adding a point to verify a stones have been placed
-        StoneValidated += 1;
-    }
-    if(CheckStoneLeft((*gameData), column, row) == 1) {
-        WriteStoneLeft(&(*gameData), column, row);
-        StoneValidated += 1;
-    }
-    if(CheckStoneUp((*gameData), column, row) == 1) {
-        WriteStoneUp(&(*gameData), column, row);
-        StoneValidated += 1;
-    }
-    if(CheckStoneDown((*gameData), column, row) == 1) {
-        WriteStoneRight(&(*gameData), column, row);
-        StoneValidated += 1;
-    }
-    if(CheckStoneUpRight((*gameData), column, row) == 1) {
-        WriteStoneUpRight(&(*gameData), column, row);
-        StoneValidated += 1;
-    }
-    if(CheckStoneUpLeft((*gameData), column, row) == 1) {
-        WriteStoneUpLeft(&(*gameData), column, row);
-        StoneValidated += 1;
-    }
-    if(CheckStoneDownRight((*gameData), column, row) == 1) {
-        WriteStoneDownRight(&(*gameData), column, row);
-        StoneValidated += 1;
-    }
-    if(CheckStoneDownLeft((*gameData), column, row) == 1) {
-        WriteStoneDownLeft(&(*gameData), column, row);
-        StoneValidated += 1;
-    }
-    ///Return of Process Status (1 for Stones placed, 0 for invalid Place)
-    if(StoneValidated > 0) {
+/**
+*   This Function Places the Stone of the Player
+*   Returns:
+*   0: Stone can't be placed
+*   1: Stone placed
+**/
+int SetStone(struct SaveFile *gameData, int column, int row){
+    ///Clean FlipBoard
+    ResetFlipBoard();
+    if(PlacementValid(gameData, column, row)){
+        FlipStones(&(*gameData));
         return 1;
     }
-    else{
+    return 0;
+}
+
+/**
+*   This Function checks if the Placement of the Stone is Valid
+*   Returns:
+*   0: Invalid Position
+*   1: Valid Position
+**/
+int PlacementValid(struct SaveFile gameData, int column, int row){
+    ///Checking Every Direction
+    if(CheckStoneLeft(gameData, int column, int row) == 1){
+        ///Marking Stones to be flipped
+        MarkStoneLeft(struct SaveFile gameData, int column, int row);
+    }
+    if(CheckStoneRight(gameData, int column, int row) == 1){
+        MarkStoneRight(gameData, int column, int row);
+    }
+    if(CheckStoneUp(gameData, int column, int row) == 1){
+        MarkStoneUp(gameData, int column, int row);
+    }
+    if(CheckStoneDown(gameData, int column, int row) == 1){
+        MarkStoneDown(gameData, int column, int row);
+    }
+    if(CheckStoneUpLeft(gameData, int column, int row) == 1){
+        MarkStoneUpLeft(gameData, int column, int row);
+    }
+    if(CheckStoneUpRight(gameData, int column, int row) == 1){
+        MarkStoneUpRight(gameData, int column, int row);
+    }
+    if(CheckStoneDownLeft(gameData, int column, int row) == 1){
+        MarkStoneDownLeft(gameData, int column, int row);
+    }
+    if(CheckStoneDownRight(gameData, int column, int row) == 1){
+        MarkStoneDownLeft(gameData, int column, int row);
+    }
+}
+
+///--------------------///
+///STONE CHECKING LOGIC///
+///--------------------///
+/**
+*   Checks Position in the direction given in the function Name
+*   Returns:
+*   0: Not Valid in this Direction
+*   1: Valid in this Direction
+**/
+int CheckStoneUp(struct SaveFile gameData, int column, int row){
+    if(CheckUp(gameData, column, row) == 1){
+        row -= 2;
+        while(PositionValid == 1){
+            if(gameData.GameField[row][column] == gameData.Turn){
+                return 1;
+            }
+            row--;
+        }
         return 0;
     }
+    return 0;
 }
 
 /**
-*   THIS NEXT BLOCK OF 4 FUNCTIONS TESTS FOR STONES OF THE OWN COLOUR IN HORIZONTAL AND PERPENDICULAR DIRECTION
+*   Checks if there is a stone in the near area blocking placement
+*   Returns:
+*   0: Blocked Position
+*   1: Not Blocked Position
 **/
-///BLOCK START
-int CheckStoneRight(struct SaveFile Save, int column, int row) {
-    ///Searching in the given direction until a stone of the Same color is found or the end of the GameField is reached. Returning 1 if a Stone was found
-    for(column+=2; column < 8; column++){
-        ///Checking for a Stone of Player 1
-        if ((Save.Turn == 1) && (Save.GameField[row][column] == 1)) {
-            return 1;
-        }
-        ///Checking for a Stone of Player 2
-        else if ((Save.Turn == 2) && (Save.GameField[row][column] == 2)) {
-            return 1;
-        }
-    }
-    return 0;
-}
-
-int CheckStoneLeft(struct SaveFile Save, int column, int row) {
-    for(column-=2; column >= 0; column--){
-        if ((Save.Turn == 1) && (Save.GameField[row][column] == 1)) {
-            return 1;
-        }
-        else if ((Save.Turn == 2) && (Save.GameField[row][column] == 2)) {
-            return 1;
-        }
-    }
-    return 0;
-}
-
-int CheckStoneUp(struct SaveFile Save, int column, int row) {
-    for(row-=2; row >= 0; row--){
-        if ((Save.Turn == 1) && (Save.GameField[row][column] == 1)) {
-            return 1;
-        }
-        else if ((Save.Turn == 2) && (Save.GameField[row][column] == 2)) {
-            return 1;
-        }
-    }
-    return 0;
-}
-
-int CheckStoneDown(struct SaveFile Save, int column, int row) {
-    for(row+=2; row < 8; row++){
-        if ((Save.Turn == 1) && (Save.GameField[row][column] == 1)) {
-            return 1;
-        }
-        else if ((Save.Turn == 2) && (Save.GameField[row][column] == 2)) {
-            return 1;
-        }
-    }
-    return 0;
-}
-///BLOCK END
-
-/**
-*   THIS NEXT BLOCK OF 4 FUNCTIONS TESTS FOR STONES OF THE OWN COLOUR IN DIAGONAL DIRECTION
-**/
-///BLOCK START
-int CheckStoneUpRight(struct SaveFile Save, int column, int row) {
-    for(row-=2; row >= 0; row--){
-        for(column+=2; column <8; column++){
-            if ((Save.Turn == 1) && (Save.GameField[row][column] == 1)) {
-                return 1;
-            }
-            else if ((Save.Turn == 2) && (Save.GameField[row][column] == 2)) {
-                return 1;
-            }
-        }
-    }
-    return 0;
-}
-
-int CheckStoneUpLeft(struct SaveFile Save, int column, int row) {
-    for(row-=2; row >= 0; row--){
-        for(column-=2; column >=0; column--){
-            if ((Save.Turn == 1) && (Save.GameField[row][column] == 1)) {
-                return 1;
-            }
-            else if ((Save.Turn == 2) && (Save.GameField[row][column] == 2)) {
-                return 1;
-            }
-        }
-    }
-    return 0;
-}
-
-int CheckStoneDownLeft(struct SaveFile Save, int column, int row) {
-    for(row+=2; row < 8; row++){
-        for(column-=2; column >=0; column--){
-            if ((Save.Turn == 1) && (Save.GameField[row][column] == 1)) {
-                return 1;
-            }
-            else if ((Save.Turn == 2) && (Save.GameField[row][column] == 2)) {
-                return 1;
-            }
-        }
-    }
-    return 0;
-}
-
-int CheckStoneDownRight(struct SaveFile Save, int column, int row) {
-    for(row+=2; row < 8; row++){
-        for(column+=2; column <8; column++){
-            if ((Save.Turn == 1) && (Save.GameField[row][column] == 1)) {
-                return 1;
-            }
-            else if ((Save.Turn == 2) && (Save.GameField[row][column] == 2)) {
-                return 1;
-            }
-        }
-    }
-    return 0;
-}
-///BLOCK END
-
-/**
-*   THIS NEXT BLOCK OF 4 FUNCTIONS WRITES STONES OF THE OWN COLOUR IN HORIZONTAL AND PERPENDICULAR DIRECTION
-**/
-///BLOCK START
-void WriteStoneRight(struct SaveFile *gameData, int column, int row) {
-    int PlayerTurn = (*gameData).Turn;
-    column++;
-    do
-    {
-        (*gameData).GameField[row][column] = PlayerTurn;
-        column++;
-    }while((*gameData).GameField[row][column] != PlayerTurn);
-}
-
-void WriteStoneLeft(struct SaveFile *gameData, int column, int row) {
-    int PlayerTurn = (*gameData).Turn;
-    column--;
-    do
-    {
-        (*gameData).GameField[row][column] = PlayerTurn;
-        column--;
-    }while((*gameData).GameField[row][column] != PlayerTurn);
-}
-
-void WriteStoneUp(struct SaveFile *gameData, int column, int row) {
-    int PlayerTurn = (*gameData).Turn;
+int CheckUp(struct SaveFile gameData, int column, int row){
     row--;
-    do
-    {
-        (*gameData).GameField[row][column] = PlayerTurn;
-        row--;
-    }while((*gameData).GameField[row][column] != PlayerTurn);
+    if(PositionValid(column, row) == 1){
+        if(gameData.GameField[row][column] == gameData.Turn){
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+    return 0;
 }
-
-void WriteStoneDown(struct SaveFile *gameData, int column, int row) {
-    int PlayerTurn = (*gameData).Turn;
-    row++;
-    do
-    {
-        (*gameData).GameField[row][column] = PlayerTurn;
-        row++;
-    }while((*gameData).GameField[row][column] != PlayerTurn);
-}
-///BLOCK END
 
 /**
-*   THIS NEXT BLOCK OF 4 FUNCTIONS WRITES STONES OF THE OWN COLOUR IN DIAGONAL DIRECTION
+*   Marks Stones to be flipped in the direction given in the function Name
+*   Returns:
+*   0: Blocked Position
+*   1: Not Blocked Position
 **/
-///BLOCK START
-void WriteStoneUpLeft(struct SaveFile *gameData, int column, int row) {
-    int PlayerTurn = (*gameData).Turn;
+void MarkStoneUp(struct SaveFile gameData, int column, int row){
     row--;
-    column--;
-    do
-    {
-        (*gameData).GameField[row][column] = PlayerTurn;
+    while(gameData.GameField[row][column] != gameData.Turn){
+        FlipBoard[row][column] = 1;
         row--;
-        column--;
-    }while((*gameData).GameField[row][column] != PlayerTurn);
+    }
 }
 
-void WriteStoneUpRight(struct SaveFile *gameData, int column, int row) {
-    int PlayerTurn = (*gameData).Turn;
+///--Checking Down--///
+
+int CheckStoneDown(struct SaveFile gameData, int column, int row){
+    if(CheckDown(gameData, column, row) == 1){
+        row += 2;
+        while(PositionValid == 1){
+            if(gameData.GameField[row][column] == gameData.Turn){
+                return 1;
+            }
+            row++;
+        }
+        return 0;
+    }
+    return 0;
+}
+
+int CheckDown(struct SaveFile gameData, int column, int row){
+    row++;
+    if(PositionValid(column, row) == 1){
+        if(gameData.GameField[row][column] == gameData.Turn){
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void MarkStoneDown(struct SaveFile gameData, int column, int row){
+    row++;
+    while(gameData.GameField[row][column] != gameData.Turn){
+        FlipBoard[row][column] = 1;
+        row++;
+    }
+}
+
+///--Checking Left--///
+
+int CheckStoneLeft(struct SaveFile gameData, int column, int row){
+    if(CheckLeft(gameData, column, row) == 1){
+        column -= 2;
+        while(PositionValid == 1){
+            if(gameData.GameField[row][column] == gameData.Turn){
+                return 1;
+            }
+            column--;
+        }
+        return 0;
+    }
+    return 0;
+}
+
+int CheckLeft(struct SaveFile gameData, int column, int row){
+    column--;
+    if(PositionValid(column, row) == 1){
+        if(gameData.GameField[row][column] == gameData.Turn){
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void MarkStoneLeft(struct SaveFile gameData, int column, int row){
+   column--;
+    while(gameData.GameField[row][column] != gameData.Turn){
+        FlipBoard[row][column] = 1;
+        column--;
+    }
+}
+
+///--Checking Right--///
+
+int CheckStoneRight(struct SaveFile gameData, int column, int row){
+    if(CheckRight(gameData, column, row) == 1){
+        column += 2;
+        while(PositionValid == 1){
+            if(gameData.GameField[row][column] == gameData.Turn){
+                return 1;
+            }
+            column++;
+        }
+        return 0;
+    }
+    return 0;
+}
+
+int CheckRight(struct SaveFile gameData, int column, int row){
+    column++;
+    if(PositionValid(column, row) == 1){
+        if(gameData.GameField[row][column] == gameData.Turn){
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void MarkStoneRight(struct SaveFile gameData, int column, int row){
+   column++;
+    while(gameData.GameField[row][column] != gameData.Turn){
+        FlipBoard[row][column] = 1;
+        column++;
+    }
+}
+
+///--Checking Up Left--///
+
+int CheckStoneUpLeft(struct SaveFile gameData, int column, int row){
+    if(CheckUpLeft(gameData, column, row) == 1){
+        column -= 2;
+        row -= 2;
+        while(PositionValid == 1){
+            if(gameData.GameField[row][column] == gameData.Turn){
+                return 1;
+            }
+            column--;
+            row--;
+        }
+        return 0;
+    }
+    return 0;
+}
+
+int CheckUpLeft(struct SaveFile gameData, int column, int row){
+    column--;
     row--;
-    column++;
-    do
-    {
-        (*gameData).GameField[row][column] = PlayerTurn;
-        row--;
-        column++;
-    }while((*gameData).GameField[row][column] != PlayerTurn);
+    if(PositionValid(column, row) == 1){
+        if(gameData.GameField[row][column] == gameData.Turn){
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+    return 0;
 }
 
-void WriteStoneDownLeft(struct SaveFile *gameData, int column, int row) {
-    int PlayerTurn = (*gameData).Turn;
-    row++;
+void MarkStoneUpLeft(struct SaveFile gameData, int column, int row){
     column--;
-    do
-    {
-        (*gameData).GameField[row][column] = PlayerTurn;
-        row++;
+    row--;
+    while(gameData.GameField[row][column] != gameData.Turn){
+        FlipBoard[row][column] = 1;
         column--;
-    }while((*gameData).GameField[row][column] != PlayerTurn);
+        row--;
+    }
 }
 
-void WriteStoneDownRight(struct SaveFile *gameData, int column, int row) {
-    int PlayerTurn = (*gameData).Turn;
-    row++;
-    column++;
-    do
-    {
-        (*gameData).GameField[row][column] = PlayerTurn;
-        row++;
-        column++;
-    }while((*gameData).GameField[row][column] != PlayerTurn);
+///--Checking Up Right--///
+
+int CheckStoneUpRight(struct SaveFile gameData, int column, int row){
+    if(CheckUpRight(gameData, column, row) == 1){
+        column += 2;
+        row -= 2;
+        while(PositionValid == 1){
+            if(gameData.GameField[row][column] == gameData.Turn){
+                return 1;
+            }
+            column++;
+            row--;
+        }
+        return 0;
+    }
+    return 0;
 }
-///BLOCK END
+
+int CheckUpRight(struct SaveFile gameData, int column, int row){
+    column++;
+    row--;
+    if(PositionValid(column, row) == 1){
+        if(gameData.GameField[row][column] == gameData.Turn){
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void MarkStoneUpRight(struct SaveFile gameData, int column, int row){
+    column++;
+    row--;
+    while(gameData.GameField[row][column] != gameData.Turn){
+        FlipBoard[row][column] = 1;
+        column++;
+        row--;
+    }
+}
+
+///--Checking Down Left--///
+
+int CheckStoneDownLeft(struct SaveFile gameData, int column, int row){
+    if(CheckDownLeft(gameData, column, row) == 1){
+        column -= 2;
+        row += 2;
+        while(PositionValid == 1){
+            if(gameData.GameField[row][column] == gameData.Turn){
+                return 1;
+            }
+            column--;
+            row++;
+        }
+        return 0;
+    }
+    return 0;
+}
+
+int CheckDownLeft(struct SaveFile gameData, int column, int row){
+    column--;
+    row++;
+    if(PositionValid(column, row) == 1){
+        if(gameData.GameField[row][column] == gameData.Turn){
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void MarkStoneDownLeft(struct SaveFile gameData, int column, int row){
+    column--;
+    row++;
+    while(gameData.GameField[row][column] != gameData.Turn){
+        FlipBoard[row][column] = 1;
+        column--;
+        row++;
+    }
+}
+
+///--Checking Down Right--///
+
+int CheckStoneDownRight(struct SaveFile gameData, int column, int row){
+    if(CheckDownRight(gameData, column, row) == 1){
+        column += 2;
+        row += 2;
+        while(PositionValid == 1){
+            if(gameData.GameField[row][column] == gameData.Turn){
+                return 1;
+            }
+            column++;
+            row++;
+        }
+        return 0;
+    }
+    return 0;
+}
+
+int CheckDownRight(struct SaveFile gameData, int column, int row){
+    column++;
+    row++;
+    if(PositionValid(column, row) == 1){
+        if(gameData.GameField[row][column] == gameData.Turn){
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void MarkStoneDownRight(struct SaveFile gameData, int column, int row){
+    column++;
+    row++;
+    while(gameData.GameField[row][column] != gameData.Turn){
+        FlipBoard[row][column] = 1;
+        column++;
+        row++;
+    }
+}
+
+
+///-------------///
+///GENERAL LOGIC///
+///-------------///
+
+/**
+*   Flipping all stones marked on the FlipTable
+**/
+void FlipStones(struct SaveFile *gameData){
+    for(int i = 0; i < 8; i++){
+        for(int k = 0; k < 8; k++){
+            if(FlipBoard[i][k] == 1){
+                if((*gameData).GameField[i][k] == 1){
+                    (*gameData).GameField[i][k] = 2;
+                }
+                if((*gameData).GameField[i][k] == 2){
+                    (*gameData).GameField[i][k] = 1;
+                }
+            }
+        }
+    }
+}
+/**
+*   Checks if row and column used in the current function is inside the allowed range
+*   Returns:
+*   0: Outside Range
+*   1: Inside Range
+**/
+int PositionValid(int column, int row){
+    int x = row;
+    int y = column;
+    if(x < 0 || x > 8){
+        return 0;
+    }
+    if(y < 0 || y > 8){
+        return 0;
+    }
+    return 1;
+}
+/**
+*   This function Resets the FlipBoard
+**/
+void ResetFlipBoard(){
+    for(int i = 0; i < 8; i++){
+        for(int k = 0; k < 8; k++)
+            FlipBoard[i][k] = 0;
+    }
+}

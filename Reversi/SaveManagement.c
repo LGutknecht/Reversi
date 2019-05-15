@@ -5,7 +5,7 @@
 *   Function: reset the SaveFile to it´s original state
 *
 *   Parameters:
-*   struct SaveFile Save: Gets passed the SaveFile as a VAR to edit it
+*   struct SaveFile gameData: Gets passed the SaveFile as a VAR to edit it
 **/
 void InitSave(struct SaveFile *gameData) {
     /**Clearing the Board**/

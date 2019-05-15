@@ -13,7 +13,7 @@ void stopWatch(struct SaveFile *gameData);
 
 /**
 Function: navigate over the gamefield with W-A-S-D Buttons and set the stone with 'y'-Button, you can not move out of the gamefield
-Input: struct Save
+Input: struct gameData
 Output: /
 */
 void setGameStone(struct SaveFile *gameData) {
@@ -46,7 +46,7 @@ void setGameStone(struct SaveFile *gameData) {
             }
             goToXY(column, row); ///setting the stone at the choosen place of the field
             if(input == 'y') {
-                if(ValidateAndWriteStonePosition(&(*gameData), column, row) == 1) {
+                if(SetStone(&(*gameData), column, row) == 1) {
                     if((*gameData).Turn == 1) {
                         (*gameData).GameField[row][column / 2] = 1;
                     }
@@ -55,10 +55,10 @@ void setGameStone(struct SaveFile *gameData) {
                     }
                 }
                 else {
-                    system("cls");
                     goToXY(1, 20);
                     printf("Der Stein kann nicht an die aktuelle Position gesetzt werden!");
                     Sleep(1000);
+                    input = 'X';
                 }
             }
         }
@@ -90,7 +90,7 @@ void goToXY(int column, int row) {
 }
 /**
 Function: changes the player turn, if player one was at turn, player two is now on turn, same at opposite situation
-Input: struct Save
+Input: struct gameData
 Output: /
 */
 void whichPlayerTurn(struct SaveFile *gameData) {
@@ -103,7 +103,7 @@ void whichPlayerTurn(struct SaveFile *gameData) {
 }
 /**
 Function: checks the number of the PlayerStones immediatly after a turn
-Input: struct Save, column and row of the cursor on the field
+Input: struct gameData, column and row of the cursor on the field
 Output: /
 */
 void checkNumberOfPlayerStones(struct SaveFile *gameData) {
@@ -121,14 +121,22 @@ void checkNumberOfPlayerStones(struct SaveFile *gameData) {
     }
     goToXY(27, 3);
     printf("SCORE");
+    if((*gameData).Turn == 1){
+       goToXY(20, 4);
+       printf("->");
+    }
     goToXY(22, 4);
-    printf("Spieler BLAU: %2i", numberPOne);
+    printf("Spieler O: %2i", numberPOne);
+    if((*gameData).Turn == 2){
+       goToXY(20, 5);
+       printf("->");
+    }
     goToXY(22, 5);
-    printf("Spieler ROT:  %2i", numberPTwo);
+    printf("Spieler X: %2i", numberPTwo);
 }
 /**
 Funciton: shows the gametime parallel to the gameplay, realised in a separate thread
-Input: struct Save to write the time in it
+Input: struct gameData to write the time in it
 Output: /
 */
 void stopWatch(struct SaveFile *gameData) {

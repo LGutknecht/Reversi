@@ -15,7 +15,7 @@
 
 ///Declaration of the struct in the program
 struct SaveFile{
-    int GameField[9][9];
+    int GameField[8][8];
     int Turn;
     int Time;
     int Mode;
