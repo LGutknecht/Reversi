@@ -18,7 +18,7 @@ struct SaveFile{
     int GameField[8][8];
     int Turn;
     int Time;
-    int Mode;
+    ///int Mode;
 };
 
 bool playerWin, gamePaused;
