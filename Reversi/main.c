@@ -79,19 +79,21 @@ void openSettings(struct SaveFile *gameData){
         system("cls");
         ///Settings Menu to set the play style: Player vs player OR Player vs Computer
         printf("Willkommen zu den Einstellungen!\n\n");
+        printf("1: Modus: Spieler gegen Spieler");
         printf("2: Regeln von Reversi\n");
         printf("3: Steuerung des Spiels\n");
         printf("4: Zurueck\n");
-        goToXY(0, 1);
+        //goToXY(0, 1);
         printf("1: Modus: ");
         setGameMode(&(*gameData), playerAgainstPlayer);
         input = getch();
-        if(input == '1') {
+        ///switching the gamemode is a deleted feature in this program
+        /*if(input == '1') {
             system("cls");
             playerAgainstPlayer = !playerAgainstPlayer;
             setGameMode(&(*gameData), playerAgainstPlayer);
             system("cls");
-        }
+        }*/
         else if (input == '2'){
             system("cls");
             openManual();
@@ -110,7 +112,7 @@ Function: sets the Gamemode between Player vs Player and Player vs Computer
 Input: boolean playerAgainstPlayer
 Output: /
 */
-void setGameMode(struct SaveFile *gameData, bool playerAgainstPlayer) {
+/*void setGameMode(struct SaveFile *gameData, bool playerAgainstPlayer) {
     if(playerAgainstPlayer == true) {
         printf("Spieler gegen Spieler");
         (*gameData).Mode = 0;
@@ -119,7 +121,7 @@ void setGameMode(struct SaveFile *gameData, bool playerAgainstPlayer) {
         printf("Spieler gegen Computer");
         (*gameData).Mode = 1;
     }
-}
+}*/
 /**
 Function: rules of the game, press the number 1, to go back to the settings
 Input: /

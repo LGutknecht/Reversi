@@ -30,5 +30,5 @@ void InitSave(struct SaveFile *gameData) {
     (*gameData).Turn = 1; /** 1 = Player One, 2 = Player Two*/
 
     ///Reset Game Mode
-    (*gameData).Mode = 0;///Mode = 0: Player vs Player, Mode = 1: Player vs Computer
+    ///(*gameData).Mode = 0; Mode = 0: Player vs Player, Mode = 1: Player vs Computer
 }
