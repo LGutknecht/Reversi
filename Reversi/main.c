@@ -32,7 +32,7 @@ int main() {
     _beginthread(stopWatch, 0, &gameData);
     do {
         /**Drawing Game Board*/
-        drawGameBoard(&gameData);
+        drawGameBoard(gameData);
         setGameStone(&gameData);
         whichPlayerTurn(&gameData);
     } while(playerWin == false);
@@ -74,18 +74,18 @@ Output: /
 void openSettings(struct SaveFile *gameData){
 
     char input;
-    bool playerAgainstPlayer = true;
+    ///bool playerAgainstPlayer = true;
     do {
         system("cls");
         ///Settings Menu to set the play style: Player vs player OR Player vs Computer
         printf("Willkommen zu den Einstellungen!\n\n");
-        printf("1: Modus: Spieler gegen Spieler");
+        printf("1: Modus: Spieler gegen Spieler\n");
         printf("2: Regeln von Reversi\n");
         printf("3: Steuerung des Spiels\n");
         printf("4: Zurueck\n");
         //goToXY(0, 1);
-        printf("1: Modus: ");
-        setGameMode(&(*gameData), playerAgainstPlayer);
+        ///printf("1: Modus: ");
+        ///setGameMode(&(*gameData), playerAgainstPlayer);
         input = getch();
         ///switching the gamemode is a deleted feature in this program
         /*if(input == '1') {
@@ -94,7 +94,7 @@ void openSettings(struct SaveFile *gameData){
             setGameMode(&(*gameData), playerAgainstPlayer);
             system("cls");
         }*/
-        else if (input == '2'){
+        if (input == '2'){
             system("cls");
             openManual();
         }

@@ -1,4 +1,5 @@
 #include "Reversi.h"
+#include "StoneManagement.h"
 ///THIS FILE HANDLES THE COURSE OF THE GAME
 
 /**
@@ -8,7 +9,6 @@ void setGameStone(struct SaveFile *gameData);
 void goToXY(int column, int row);
 void whichPlayerTurn(struct SaveFile *gameData);
 void checkNumberOfPlayerStones(struct SaveFile *gameData);
-int ValidateAndWriteStonePosition(struct SaveFile *gameData, int column, int row);
 void stopWatch(struct SaveFile *gameData);
 void saveGame(struct SaveFile *gameData);
 
@@ -56,7 +56,7 @@ void setGameStone(struct SaveFile *gameData) {
                     }
                 }
                 else {
-                    goToXY(1, 20);
+                    goToXY(1, 12);
                     printf("Der Stein kann nicht an die aktuelle Position gesetzt werden!");
                     Sleep(1000);
                     input = 'X';
@@ -176,9 +176,9 @@ void stopWatch(struct SaveFile *gameData) {
 
 void saveGame(struct SaveFile *gameData) {
     FILE *filepointer;
-    char
 
-    filepointer = fopen("gameState.txt", "w");
+
+    /*filepointer = fopen("gameState.txt", "w");
 
     if(filepointer == NULL) {
         goToXY(1, 10);
@@ -195,5 +195,5 @@ void saveGame(struct SaveFile *gameData) {
         fprintf(filepointer, "%i\n", gameData.Mode);
         fprintf(filepointer, "%i\n", gameData.Time);
         fprintf(filepointer, "%i\n", gameData.Turn);
-    }
+    }*/
 }

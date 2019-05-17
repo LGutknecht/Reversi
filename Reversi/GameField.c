@@ -3,18 +3,17 @@
 /**
 *   Declaring Function Prototypes
 **/
-void drawGameBoard(struct SaveFile *gameData);
-void drawScoreArea();
+
 /**
 Function:draw of the gamefield, drawing game with gamefield data
 Input: struct gameData, globales struct
 Output: /
 */
-void drawGameBoard(struct SaveFile *gameData) {
+void drawGameBoard(struct SaveFile gameData) {
     system("cls");
     for(int i = 0; i < 8; i++) {
         for(int k = 0; k < 8; k++) {
-            switch((*gameData).GameField[i][k]) {
+            switch(gameData.GameField[i][k]) {
                 case 0: printf("%2c", '-'); break;
                 case 1: printf("%2c" , 'O'); break;
                 case 2: printf( "%2c" , 'X'); break;

@@ -11,7 +11,7 @@ int FlipBoard[8][8];
 int SetStone(struct SaveFile *gameData, int column, int row){
     ///Clean FlipBoard
     ResetFlipBoard();
-    if(PlacementValid(gameData, column, row)){
+    if(PlacementValid((*gameData), column, row)){
         FlipStones(&(*gameData));
         return 1;
     }
@@ -26,30 +26,30 @@ int SetStone(struct SaveFile *gameData, int column, int row){
 **/
 int PlacementValid(struct SaveFile gameData, int column, int row){
     ///Checking Every Direction
-    if(CheckStoneLeft(gameData, int column, int row) == 1){
+    if(CheckStoneLeft(gameData, column, row) == 1){
         ///Marking Stones to be flipped
-        MarkStoneLeft(struct SaveFile gameData, int column, int row);
+        MarkStoneLeft(gameData, column, row);
     }
-    if(CheckStoneRight(gameData, int column, int row) == 1){
-        MarkStoneRight(gameData, int column, int row);
+    if(CheckStoneRight(gameData, column, row) == 1){
+        MarkStoneRight(gameData, column, row);
     }
-    if(CheckStoneUp(gameData, int column, int row) == 1){
-        MarkStoneUp(gameData, int column, int row);
+    if(CheckStoneUp(gameData, column, row) == 1){
+        MarkStoneUp(gameData, column, row);
     }
-    if(CheckStoneDown(gameData, int column, int row) == 1){
-        MarkStoneDown(gameData, int column, int row);
+    if(CheckStoneDown(gameData, column, row) == 1){
+        MarkStoneDown(gameData, column, row);
     }
-    if(CheckStoneUpLeft(gameData, int column, int row) == 1){
-        MarkStoneUpLeft(gameData, int column, int row);
+    if(CheckStoneUpLeft(gameData, column, row) == 1){
+        MarkStoneUpLeft(gameData, column, row);
     }
-    if(CheckStoneUpRight(gameData, int column, int row) == 1){
-        MarkStoneUpRight(gameData, int column, int row);
+    if(CheckStoneUpRight(gameData, column, row) == 1){
+        MarkStoneUpRight(gameData, column, row);
     }
-    if(CheckStoneDownLeft(gameData, int column, int row) == 1){
-        MarkStoneDownLeft(gameData, int column, int row);
+    if(CheckStoneDownLeft(gameData, column, row) == 1){
+        MarkStoneDownLeft(gameData, column, row);
     }
-    if(CheckStoneDownRight(gameData, int column, int row) == 1){
-        MarkStoneDownLeft(gameData, int column, int row);
+    if(CheckStoneDownRight(gameData, column, row) == 1){
+        MarkStoneDownLeft(gameData, column, row);
     }
 }
 

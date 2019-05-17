@@ -13,12 +13,10 @@
 //#define ANSI_COLOR_BLUE    "\x1b[34m" ///BLUE
 //#define ANSI_COLOR_RESET   "\x1b[0m"  ///RESET = WHITE
 
-///Declaration of the struct in the program
 struct SaveFile{
     int GameField[8][8];
     int Turn;
     int Time;
-    ///int Mode;
 };
 
 bool playerWin, gamePaused;
@@ -33,14 +31,14 @@ void openManual();
 void InitSave(struct SaveFile *gameData);
 
 /** Function Prototypes from GameField.c */
-void drawGameBoard(struct SaveFile *gameData);
+void drawGameBoard(struct SaveFile gameData);
+void drawScoreArea();
 
 /** Function Prototypes from GamePlay.c */
 void setGameStone(struct SaveFile *gameData);
 void goToXY(int column, int row);
 void whichPlayerTurn(struct SaveFile *gameData);
 void checkNumberOfPlayerStones(struct SaveFile *gameData);
-int ValidateAndWriteStonePosition(struct SaveFile *gameData, int column, int row);
 void stopWatch(struct SaveFile *gameData);
-
+void saveGame(struct SaveFile *gameData);
 #endif /* REVERSI_H_INCLUDED*/

@@ -1,12 +1,7 @@
 #ifndef STONEMANAGEMENT_H_INCLUDED
 #define STONEMANAGEMENT_H_INCLUDED
+#include "Reversi.h"
 ///Declaration of the struct in the program
-struct SaveFile{
-    int GameField[8][8];
-    int Turn;
-    int Time;
-    int Mode;
-};
 
 ///Declaring Function Prototypes
 int CheckStoneRight(struct SaveFile gameData, int column, int row);
