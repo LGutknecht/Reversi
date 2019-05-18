@@ -5,6 +5,7 @@
 #include "GamePlay.h"
 #include "SaveManagement.h"
 #include "StoneManagement.h"
+#include <string.h>
 
 /**
 *   Function: reset the SaveFile to it�s original state
@@ -37,26 +38,47 @@ void InitSave(struct SaveFile *gameData) {
     ///(*gameData).Mode = 0; Mode = 0: Player vs Player, Mode = 1: Player vs Computer
 }
 
-void saveGame(struct SaveFile *gameData) {
-    //FILE *filepointer;
+int SaveGame(struct SaveFile *gameData) {
+    FILE *outfile;
 
-
-    /*filepointer = fopen("gameState.txt", "w");
-
-    if(filepointer == NULL) {
-        goToXY(1, 10);
-        printf("Die Datei kann nicht ge�ffnet werden!");
+    // open file for writing
+    outfile = fopen ("Reversi.dat", "w");
+    if (outfile == NULL)
+    {
+        fprintf(stderr, "\nError opening file\n");
+        exit (1);
     }
-    else {
-        ///write data in the file
-        for(int i = 0; i < 8; i++) {
-                for(int j = 0; j < 8; j++) {
-                    fprintf(filepointer, "%i, ", gameData.GameField[i][j]);
-                }
-            fprintf(filepointer, "\n");
-        }
-        fprintf(filepointer, "%i\n", gameData.Mode);
-        fprintf(filepointer, "%i\n", gameData.Time);
-        fprintf(filepointer, "%i\n", gameData.Turn);
-    }*/
+
+    // write struct to file
+    fwrite (&(*gameData), sizeof(struct SaveFile), 1, outfile);
+
+    if(fwrite != 0)
+        printf("contents to file written successfully !\n");
+    else
+        printf("error writing file !\n");
+
+    // close file
+    fclose (outfile);
+
+    return 0;
+}
+
+int LoadGame(struct SaveFile *gameData){
+    FILE *infile;
+
+    // Open person.dat for reading
+    infile = fopen ("Reversi.dat", "r");
+    if (infile == NULL)
+    {
+        fprintf(stderr, "\nError opening file\n");
+        exit (1);
+    }
+
+    // read file contents
+    fread(&(*gameData), sizeof(struct SaveFile), 1, infile);
+
+    // close file
+    fclose (infile);
+
+    return 0;
 }

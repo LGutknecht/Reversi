@@ -56,7 +56,7 @@ void setGameStone(struct SaveFile *gameData) {
             }
             if(input == 'o') {
                 ///Save the whole gamestate in a file
-                saveGame(&(*gameData));
+                SaveGame(&(*gameData));
             }
         }
         if(input == 'w' || input == 'a' || input == 's' || input == 'd' || input == 'y') {
