@@ -1,13 +1,14 @@
-#include "Reversi.h"
 /**THIS FILE HANDLES THE GAMEBOARD INPUT AND THE GRAPHICS*/
-/**
-*   Declaring Function Prototypes
-**/
+
+#include "Reversi.h"
+#include "GameField.h"
+#include "GamePlay.h"
+#include "SaveManagement.h"
+#include "StoneManagement.h"
 
 /**
 Function:draw of the gamefield, drawing game with gamefield data
 Input: struct gameData, globales struct
-Output: /
 */
 void drawGameBoard(struct SaveFile gameData) {
     system("cls");

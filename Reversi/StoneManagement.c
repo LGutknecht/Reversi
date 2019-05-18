@@ -1,6 +1,13 @@
+/**THIS FILE HANDLES THE STONE LOGIC*/
+
+#include "Reversi.h"
+#include "GameField.h"
+#include "GamePlay.h"
+#include "SaveManagement.h"
 #include "StoneManagement.h"
 ///Declaring Global Variables
 int FlipBoard[8][8];
+
 
 /**
 *   This Function Places the Stone of the Player
@@ -9,8 +16,24 @@ int FlipBoard[8][8];
 *   1: Stone placed
 **/
 int SetStone(struct SaveFile *gameData, int column, int row){
+
+
     ///Clean FlipBoard
     ResetFlipBoard();
+
+    ///Correct Coordinates
+    switch(column){
+        case 1: column = 0; break;
+        case 3: column = 1; break;
+        case 5: column = 2; break;
+        case 7: column = 3; break;
+        case 9: column = 4; break;
+        case 11:column = 5; break;
+        case 13:column = 6; break;
+        case 15:column = 7; break;
+    }
+
+
     if(PlacementValid((*gameData), column, row)){
         FlipStones(&(*gameData));
         return 1;
@@ -25,32 +48,49 @@ int SetStone(struct SaveFile *gameData, int column, int row){
 *   1: Valid Position
 **/
 int PlacementValid(struct SaveFile gameData, int column, int row){
+    int Valid = 0;
+
     ///Checking Every Direction
     if(CheckStoneLeft(gameData, column, row) == 1){
         ///Marking Stones to be flipped
         MarkStoneLeft(gameData, column, row);
+        ///Marking the Desired PLace to be valid
+        Valid = 1;
     }
     if(CheckStoneRight(gameData, column, row) == 1){
         MarkStoneRight(gameData, column, row);
+        Valid = 1;
     }
     if(CheckStoneUp(gameData, column, row) == 1){
         MarkStoneUp(gameData, column, row);
+        Valid = 1;
     }
     if(CheckStoneDown(gameData, column, row) == 1){
         MarkStoneDown(gameData, column, row);
+        Valid = 1;
     }
     if(CheckStoneUpLeft(gameData, column, row) == 1){
         MarkStoneUpLeft(gameData, column, row);
+        Valid = 1;
     }
     if(CheckStoneUpRight(gameData, column, row) == 1){
         MarkStoneUpRight(gameData, column, row);
+        Valid = 1;
     }
     if(CheckStoneDownLeft(gameData, column, row) == 1){
         MarkStoneDownLeft(gameData, column, row);
+        Valid = 1;
     }
     if(CheckStoneDownRight(gameData, column, row) == 1){
-        MarkStoneDownLeft(gameData, column, row);
+        MarkStoneDownRight(gameData, column, row);
+        Valid = 1;
     }
+    if(Valid == 0){
+        return 0;
+    } else {
+        return 1;
+    }
+
 }
 
 ///--------------------///
@@ -65,7 +105,16 @@ int PlacementValid(struct SaveFile gameData, int column, int row){
 int CheckStoneUp(struct SaveFile gameData, int column, int row){
     if(CheckUp(gameData, column, row) == 1){
         row -= 2;
-        while(PositionValid == 1){
+        if((gameData.GameField[row][column] == gameData.Turn) && (PositionValid(column,row) == 1)){
+            return 1;
+        }
+        while(1){
+            if(PositionValid(column,row) == 0){
+                return 0;
+            }
+            if(gameData.GameField[row][column] == 0){
+                return 0;
+            }
             if(gameData.GameField[row][column] == gameData.Turn){
                 return 1;
             }
@@ -113,7 +162,16 @@ void MarkStoneUp(struct SaveFile gameData, int column, int row){
 int CheckStoneDown(struct SaveFile gameData, int column, int row){
     if(CheckDown(gameData, column, row) == 1){
         row += 2;
-        while(PositionValid == 1){
+        if((gameData.GameField[row][column] == gameData.Turn) && (PositionValid(column,row) == 1)){
+            return 1;
+        }
+        while(1){
+            if(PositionValid(column,row) == 0){
+                return 0;
+            }
+            if(gameData.GameField[row][column] == 0){
+                return 0;
+            }
             if(gameData.GameField[row][column] == gameData.Turn){
                 return 1;
             }
@@ -149,7 +207,16 @@ void MarkStoneDown(struct SaveFile gameData, int column, int row){
 int CheckStoneLeft(struct SaveFile gameData, int column, int row){
     if(CheckLeft(gameData, column, row) == 1){
         column -= 2;
-        while(PositionValid == 1){
+        if((gameData.GameField[row][column] == gameData.Turn) && (PositionValid(column,row) == 1)){
+            return 1;
+        }
+        while(1){
+            if(PositionValid(column,row) == 0){
+                return 0;
+            }
+            if(gameData.GameField[row][column] == 0){
+                return 0;
+            }
             if(gameData.GameField[row][column] == gameData.Turn){
                 return 1;
             }
@@ -185,7 +252,16 @@ void MarkStoneLeft(struct SaveFile gameData, int column, int row){
 int CheckStoneRight(struct SaveFile gameData, int column, int row){
     if(CheckRight(gameData, column, row) == 1){
         column += 2;
-        while(PositionValid == 1){
+        if((gameData.GameField[row][column] == gameData.Turn) && (PositionValid(column,row) == 1)){
+            return 1;
+        }
+        while(1){
+            if(PositionValid(column,row) == 0){
+                return 0;
+            }
+            if(gameData.GameField[row][column] == 0){
+                return 0;
+            }
             if(gameData.GameField[row][column] == gameData.Turn){
                 return 1;
             }
@@ -222,7 +298,16 @@ int CheckStoneUpLeft(struct SaveFile gameData, int column, int row){
     if(CheckUpLeft(gameData, column, row) == 1){
         column -= 2;
         row -= 2;
-        while(PositionValid == 1){
+        if((gameData.GameField[row][column] == gameData.Turn) && (PositionValid(column,row) == 1)){
+            return 1;
+        }
+        while(1){
+            if(PositionValid(column,row) == 0){
+                return 0;
+            }
+            if(gameData.GameField[row][column] == 0){
+                return 0;
+            }
             if(gameData.GameField[row][column] == gameData.Turn){
                 return 1;
             }
@@ -263,7 +348,16 @@ int CheckStoneUpRight(struct SaveFile gameData, int column, int row){
     if(CheckUpRight(gameData, column, row) == 1){
         column += 2;
         row -= 2;
-        while(PositionValid == 1){
+        if((gameData.GameField[row][column] == gameData.Turn) && (PositionValid(column,row) == 1)){
+            return 1;
+        }
+        while(1){
+            if(PositionValid(column,row) == 0){
+                return 0;
+            }
+            if(gameData.GameField[row][column] == 0){
+                return 0;
+            }
             if(gameData.GameField[row][column] == gameData.Turn){
                 return 1;
             }
@@ -304,7 +398,16 @@ int CheckStoneDownLeft(struct SaveFile gameData, int column, int row){
     if(CheckDownLeft(gameData, column, row) == 1){
         column -= 2;
         row += 2;
-        while(PositionValid == 1){
+        if((gameData.GameField[row][column] == gameData.Turn) && (PositionValid(column,row) == 1)){
+            return 1;
+        }
+        while(1){
+            if(PositionValid(column,row) == 0){
+                return 0;
+            }
+            if(gameData.GameField[row][column] == 0){
+                return 0;
+            }
             if(gameData.GameField[row][column] == gameData.Turn){
                 return 1;
             }
@@ -345,7 +448,16 @@ int CheckStoneDownRight(struct SaveFile gameData, int column, int row){
     if(CheckDownRight(gameData, column, row) == 1){
         column += 2;
         row += 2;
-        while(PositionValid == 1){
+        if((gameData.GameField[row][column] == gameData.Turn) && (PositionValid(column,row) == 1)){
+            return 1;
+        }
+        while(1){
+            if(PositionValid(column,row) == 0){
+                return 0;
+            }
+            if(gameData.GameField[row][column] == 0){
+                return 0;
+            }
             if(gameData.GameField[row][column] == gameData.Turn){
                 return 1;
             }
@@ -394,14 +506,15 @@ void FlipStones(struct SaveFile *gameData){
             if(FlipBoard[i][k] == 1){
                 if((*gameData).GameField[i][k] == 1){
                     (*gameData).GameField[i][k] = 2;
-                }
-                if((*gameData).GameField[i][k] == 2){
+                } else {
                     (*gameData).GameField[i][k] = 1;
                 }
             }
         }
     }
+    ResetFlipBoard();
 }
+
 /**
 *   Checks if row and column used in the current function is inside the allowed range
 *   Returns:
@@ -428,3 +541,6 @@ void ResetFlipBoard(){
             FlipBoard[i][k] = 0;
     }
 }
+
+
+

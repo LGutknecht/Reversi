@@ -1,7 +1,5 @@
 #ifndef STONEMANAGEMENT_H_INCLUDED
 #define STONEMANAGEMENT_H_INCLUDED
-#include "Reversi.h"
-///Declaration of the struct in the program
 
 ///Declaring Function Prototypes
 int CheckStoneRight(struct SaveFile gameData, int column, int row);
@@ -42,3 +40,4 @@ int SetStone(struct SaveFile *gameData, int column, int row);
 void FlipStones(struct SaveFile *gameData);
 void ResetFlipBoard();
 #endif // STONEMANAGEMENT_H_INCLUDED
+

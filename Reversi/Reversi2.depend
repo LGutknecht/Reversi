@@ -1,0 +1,105 @@
+# depslib dependency file v1.0
+1558109981 source:c:\users\vernohd\documents\reversi2\reversi2\gamefield.c
+	"Reversi.h"
+	"GameField.h"
+	"GamePlay.h"
+	"SaveManagement.h"
+	"StoneManagement.h"
+
+1558110578 c:\users\vernohd\documents\reversi2\reversi2\reversi.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<windows.h>
+	<process.h>
+	<time.h>
+	<stdbool.h>
+
+1558109012 c:\users\vernohd\documents\reversi2\reversi2\gamefield.h
+
+1558110511 source:c:\users\vernohd\documents\reversi2\reversi2\main.c
+	"Reversi.h"
+	"GameField.h"
+	"GamePlay.h"
+	"SaveManagement.h"
+	"StoneManagement.h"
+
+1558178718 source:c:\users\vernohd\documents\reversi2\reversi2\stonemanagement.c
+	"Reversi.h"
+	"GameField.h"
+	"GamePlay.h"
+	"SaveManagement.h"
+	"StoneManagement.h"
+
+1558110214 source:c:\users\vernohd\documents\reversi2\reversi2\gameplay.c
+	"Reversi.h"
+	"GameField.h"
+	"GamePlay.h"
+	"SaveManagement.h"
+	"StoneManagement.h"
+
+1558109289 c:\users\vernohd\documents\reversi2\reversi2\gameplay.h
+
+1558109638 c:\users\vernohd\documents\reversi2\reversi2\savemanagement.h
+
+1558123393 c:\users\vernohd\documents\reversi2\reversi2\stonemanagement.h
+
+1558109981 source:c:\users\vernohd\documents\reversi2\reversi2\savemanagement.c
+	"Reversi.h"
+	"GameField.h"
+	"GamePlay.h"
+	"SaveManagement.h"
+	"StoneManagement.h"
+
+1558109981 source:c:\users\vernohd\documents\reversi\reversi\gamefield.c
+	"Reversi.h"
+	"GameField.h"
+	"GamePlay.h"
+	"SaveManagement.h"
+	"StoneManagement.h"
+
+1558110578 c:\users\vernohd\documents\reversi\reversi\reversi.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<windows.h>
+	<process.h>
+	<time.h>
+	<stdbool.h>
+
+1558109012 c:\users\vernohd\documents\reversi\reversi\gamefield.h
+
+1558109289 c:\users\vernohd\documents\reversi\reversi\gameplay.h
+
+1558109638 c:\users\vernohd\documents\reversi\reversi\savemanagement.h
+
+1558123393 c:\users\vernohd\documents\reversi\reversi\stonemanagement.h
+
+1558110214 source:c:\users\vernohd\documents\reversi\reversi\gameplay.c
+	"Reversi.h"
+	"GameField.h"
+	"GamePlay.h"
+	"SaveManagement.h"
+	"StoneManagement.h"
+
+1558110511 source:c:\users\vernohd\documents\reversi\reversi\main.c
+	"Reversi.h"
+	"GameField.h"
+	"GamePlay.h"
+	"SaveManagement.h"
+	"StoneManagement.h"
+
+1558109981 source:c:\users\vernohd\documents\reversi\reversi\savemanagement.c
+	"Reversi.h"
+	"GameField.h"
+	"GamePlay.h"
+	"SaveManagement.h"
+	"StoneManagement.h"
+
+1558178718 source:c:\users\vernohd\documents\reversi\reversi\stonemanagement.c
+	"Reversi.h"
+	"GameField.h"
+	"GamePlay.h"
+	"SaveManagement.h"
+	"StoneManagement.h"
+

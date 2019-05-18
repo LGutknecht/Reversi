@@ -2,12 +2,12 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="Reversi" />
+		<Option title="Reversi2" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/Reversi" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/Reversi2" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -16,7 +16,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/Reversi" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/Reversi2" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -34,20 +34,26 @@
 		<Unit filename="GameField.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="GameField.h" />
 		<Unit filename="GamePlay.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="KIManagement.c">
-			<Option compilerVar="CC" />
+		<Unit filename="GamePlay.h">
+			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="Reversi.h" />
 		<Unit filename="SaveManagement.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="SaveManagement.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="StoneManagement.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="StoneManagement.h" />
+		<Unit filename="StoneManagement.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -55,7 +61,6 @@
 			<code_completion />
 			<envvars />
 			<debugger />
-			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

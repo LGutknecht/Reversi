@@ -7,13 +7,13 @@
 *   Lukas Alte-Bornholt
 *   Lukas Gutknecht
 **/
+
 #include "Reversi.h"
-/**THIS FILE HANDLES THE GENERAL GAME*/
-int mainMenu(struct SaveFile *gameData);
-void openSettings(struct SaveFile *gameData);
-void setGameMode(struct SaveFile *gameData, bool playerAgainstPlayer);
-void openManual();
-void openControls();
+#include "GameField.h"
+#include "GamePlay.h"
+#include "SaveManagement.h"
+#include "StoneManagement.h"
+
 
 int main() {
     ///declaration of the struct
@@ -29,7 +29,7 @@ int main() {
         return 0; ///the game will be closed after pressing 3 for 'beenden' in the Main Menu
     }
     ///the players set alternately stones
-    _beginthread(stopWatch, 0, &gameData);
+    //_beginthread(stopWatch, 0, &gameData);
     do {
         /**Drawing Game Board*/
         drawGameBoard(gameData);
@@ -178,3 +178,4 @@ void openControls() {
         system("cls");
     } while(input != '1');
 }
+
