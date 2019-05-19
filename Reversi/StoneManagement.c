@@ -134,7 +134,7 @@ int CheckStoneUp(struct SaveFile gameData, int column, int row){
 int CheckUp(struct SaveFile gameData, int column, int row){
     row--;
     if(PositionValid(column, row) == 1){
-        if(gameData.GameField[row][column] == gameData.Turn){
+        if((gameData.GameField[row][column] == gameData.Turn) || (gameData.GameField[row][column] == 0)){
             return 0;
         } else {
             return 1;
@@ -185,7 +185,7 @@ int CheckStoneDown(struct SaveFile gameData, int column, int row){
 int CheckDown(struct SaveFile gameData, int column, int row){
     row++;
     if(PositionValid(column, row) == 1){
-        if(gameData.GameField[row][column] == gameData.Turn){
+        if((gameData.GameField[row][column] == gameData.Turn) || (gameData.GameField[row][column] == 0)){
             return 0;
         } else {
             return 1;
@@ -230,7 +230,7 @@ int CheckStoneLeft(struct SaveFile gameData, int column, int row){
 int CheckLeft(struct SaveFile gameData, int column, int row){
     column--;
     if(PositionValid(column, row) == 1){
-        if(gameData.GameField[row][column] == gameData.Turn){
+        if((gameData.GameField[row][column] == gameData.Turn) || (gameData.GameField[row][column] == 0)){
             return 0;
         } else {
             return 1;
@@ -275,7 +275,7 @@ int CheckStoneRight(struct SaveFile gameData, int column, int row){
 int CheckRight(struct SaveFile gameData, int column, int row){
     column++;
     if(PositionValid(column, row) == 1){
-        if(gameData.GameField[row][column] == gameData.Turn){
+        if((gameData.GameField[row][column] == gameData.Turn) || (gameData.GameField[row][column] == 0)){
             return 0;
         } else {
             return 1;
@@ -323,7 +323,7 @@ int CheckUpLeft(struct SaveFile gameData, int column, int row){
     column--;
     row--;
     if(PositionValid(column, row) == 1){
-        if(gameData.GameField[row][column] == gameData.Turn){
+        if((gameData.GameField[row][column] == gameData.Turn) || (gameData.GameField[row][column] == 0)){
             return 0;
         } else {
             return 1;
@@ -373,7 +373,7 @@ int CheckUpRight(struct SaveFile gameData, int column, int row){
     column++;
     row--;
     if(PositionValid(column, row) == 1){
-        if(gameData.GameField[row][column] == gameData.Turn){
+        if((gameData.GameField[row][column] == gameData.Turn) || (gameData.GameField[row][column] == 0)){
             return 0;
         } else {
             return 1;
@@ -423,7 +423,7 @@ int CheckDownLeft(struct SaveFile gameData, int column, int row){
     column--;
     row++;
     if(PositionValid(column, row) == 1){
-        if(gameData.GameField[row][column] == gameData.Turn){
+        if((gameData.GameField[row][column] == gameData.Turn) || (gameData.GameField[row][column] == 0)){
             return 0;
         } else {
             return 1;
@@ -473,7 +473,7 @@ int CheckDownRight(struct SaveFile gameData, int column, int row){
     column++;
     row++;
     if(PositionValid(column, row) == 1){
-        if(gameData.GameField[row][column] == gameData.Turn){
+        if((gameData.GameField[row][column] == gameData.Turn) || (gameData.GameField[row][column] == 0)){
             return 0;
         } else {
             return 1;
@@ -541,6 +541,5 @@ void ResetFlipBoard(){
             FlipBoard[i][k] = 0;
     }
 }
-
 
 

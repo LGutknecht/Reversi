@@ -11,19 +11,72 @@ Function:draw of the gamefield, drawing game with gamefield data
 Input: struct gameData, globales struct
 */
 void drawGameBoard(struct SaveFile gameData) {
-    system("cls");
+    ///Declaring Variables
+    int PrintField[8][8];
+    int PossiblePosition;
+
     for(int i = 0; i < 8; i++) {
         for(int k = 0; k < 8; k++) {
-            switch(gameData.GameField[i][k]) {
+            PrintField[i][k] = gameData.GameField[i][k];
+        }
+    }
+
+    for(int j = 0; j < 8; j++) {
+        for(int l = 0; l < 8; l++) {
+            if(PrintField[j][l] == 0){
+                if(CheckStoneUp(gameData,l,j) == 1){
+                    PrintField[j][l] = 3;
+                    PossiblePosition = 1;
+                }
+                if(CheckStoneDown(gameData,l,j) == 1){
+                    PrintField[j][l] = 3;
+                    PossiblePosition = 1;
+                }
+                if(CheckStoneLeft(gameData,l,j) == 1){
+                    PrintField[j][l] = 3;
+                    PossiblePosition = 1;
+                }
+                if(CheckStoneRight(gameData,l,j) == 1){
+                    PrintField[j][l] = 3;
+                    PossiblePosition = 1;
+                }
+                if(CheckStoneUpLeft(gameData,l,j) == 1){
+                    PrintField[j][l] = 3;
+                    PossiblePosition = 1;
+                }
+                if(CheckStoneUpRight(gameData,l,j) == 1){
+                    PrintField[j][l] = 3;
+                    PossiblePosition = 1;
+                }
+                if(CheckStoneDownLeft(gameData,l,j) == 1){
+                    PrintField[j][l] = 3;
+                    PossiblePosition = 1;
+                }
+                if(CheckStoneDownRight(gameData,l,j) == 1){
+                    PrintField[j][l] = 3;
+                    PossiblePosition = 1;
+                }
+            }
+        }
+    }
+
+
+    system("cls");
+
+    for(int i = 0; i < 8; i++) {
+        for(int k = 0; k < 8; k++) {
+            switch(PrintField[i][k]) {
                 case 0: printf("%2c", '-'); break;
                 case 1: printf("%2c" , 'O'); break;
                 case 2: printf( "%2c" , 'X'); break;
+                case 3: printf( "%2c" , '?'); break;
             }
         }
     printf("\n");
     }
     drawScoreArea();
 }
+
 /**
 Function: draws a border around the Score Area
 Input: /
@@ -45,3 +98,4 @@ void drawScoreArea() {
     }
 
 }
+

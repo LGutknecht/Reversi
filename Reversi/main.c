@@ -50,22 +50,15 @@ int mainMenu(struct SaveFile *gameData) {
         printf("Willkommen zu Reversi!\n");
         printf("Zahlen Druecken um durch das Menue zu navigieren: \n");
         printf("1: Spiel Starten\n");
-        printf("2: Spiel laden");
-        printf("3: Einstellungen\n");
-        printf("4: Beenden\n");
+        printf("2: Einstellungen\n");
+        printf("3: Beenden\n");
 
         input = getch();
-        if (input == '2') {
-            system("cls");
-            if(LoadGame(&(*gameData)) == 0) {
-                printf("\nSpiel erfolgreich geladen!\n");
-            }
-        }
-        if(input == '3') {///Button for settings is pressed
+        if(input == '2') {///Button for settings is pressed
             system("cls");
             openSettings(&(*gameData));
         }
-        if(input == '4') {///Button for exit the game
+        if(input == '3') {///Button for exit the game
             return 0;
         }
     } while(input != '1');
