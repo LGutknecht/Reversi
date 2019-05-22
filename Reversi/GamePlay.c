@@ -116,16 +116,16 @@ void checkNumberOfPlayerStones(struct SaveFile *gameData) {
     goToXY(27, 3);
     printf("SCORE");
     if((*gameData).Turn == 1){
-       goToXY(20, 4);
+       goToXY(21, 4);
        printf("->");
     }
-    goToXY(22, 4);
+    goToXY(23, 4);
     printf("Spieler O: %2i", numberPOne);
     if((*gameData).Turn == 2){
-       goToXY(20, 5);
+       goToXY(21, 5);
        printf("->");
     }
-    goToXY(22, 5);
+    goToXY(23, 5);
     printf("Spieler X: %2i", numberPTwo);
 }
 
