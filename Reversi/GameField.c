@@ -13,7 +13,8 @@ Input: struct gameData, globales struct
 void drawGameBoard(struct SaveFile gameData) {
     ///Declaring Variables
     int PrintField[8][8];
-    int PossiblePosition;
+    int PossibleMoves = 0;
+    int MovePossible = 0;
 
     for(int i = 0; i < 8; i++) {
         for(int k = 0; k < 8; k++) {
@@ -23,40 +24,44 @@ void drawGameBoard(struct SaveFile gameData) {
 
     for(int j = 0; j < 8; j++) {
         for(int l = 0; l < 8; l++) {
+            MovePossible = 0;
             if(PrintField[j][l] == 0){
                 if(CheckStoneUp(gameData,l,j) == 1){
                     PrintField[j][l] = 3;
-                    PossiblePosition = 1;
+                    MovePossible += 1;
                 }
                 if(CheckStoneDown(gameData,l,j) == 1){
                     PrintField[j][l] = 3;
-                    PossiblePosition = 1;
+                    MovePossible += 1;
                 }
                 if(CheckStoneLeft(gameData,l,j) == 1){
                     PrintField[j][l] = 3;
-                    PossiblePosition = 1;
+                    MovePossible += 1;
                 }
                 if(CheckStoneRight(gameData,l,j) == 1){
                     PrintField[j][l] = 3;
-                    PossiblePosition = 1;
+                    MovePossible += 1;
                 }
                 if(CheckStoneUpLeft(gameData,l,j) == 1){
                     PrintField[j][l] = 3;
-                    PossiblePosition = 1;
+                    MovePossible += 1;
                 }
                 if(CheckStoneUpRight(gameData,l,j) == 1){
                     PrintField[j][l] = 3;
-                    PossiblePosition = 1;
+                    MovePossible += 1;
                 }
                 if(CheckStoneDownLeft(gameData,l,j) == 1){
                     PrintField[j][l] = 3;
-                    PossiblePosition = 1;
+                    MovePossible += 1;
                 }
                 if(CheckStoneDownRight(gameData,l,j) == 1){
                     PrintField[j][l] = 3;
-                    PossiblePosition = 1;
+                    MovePossible += 1;
                 }
             }
+        if(MovePossible >= 1){
+            PossibleMoves++;
+        }
         }
     }
 
@@ -74,6 +79,9 @@ void drawGameBoard(struct SaveFile gameData) {
         }
     printf("\n");
     }
+    goToXY(19, 8);
+    printf("Moegliche Zuege: %i", PossibleMoves);
+    checkNumberOfPlayerStones(gameData);
     drawScoreArea();
 }
 
@@ -97,5 +105,57 @@ void drawScoreArea() {
         printf("#");
     }
 
+}
+
+int BoardFull(struct SaveFile gameData){
+    for(int j = 0; j < 8; j++) {
+        for(int l = 0; l < 8; l++) {
+            if(gameData.GameField[j][l] == 0){
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+/**
+Function: checks the number of the PlayerStones immediatly after a turn
+Input: struct gameData, column and row of the cursor on the field
+*/
+
+void checkNumberOfPlayerStones(struct SaveFile gameData) {
+    int numberPOne = 0, numberPTwo = 0;
+
+    for(int i = 0; i < 8; i++) {
+        for(int j = 0; j < 8; j++) {
+            if(gameData.GameField[i][j] == 1) {
+                numberPOne++;
+            }
+            else if(gameData.GameField[i][j] == 2) {
+                numberPTwo++;
+            }
+        }
+    }
+    goToXY(27, 3);
+    printf("SCORE");
+    if(gameData.Turn == 1){
+       goToXY(21, 4);
+       printf("->");
+    }
+    if(gameData.Player1Passed >= 1){
+        goToXY(37, 4);
+        printf("P");
+    }
+    goToXY(23, 4);
+    printf("Spieler O: %2i", numberPOne);
+    if(gameData.Turn == 2){
+       goToXY(21, 5);
+       printf("->");
+    }
+    if(gameData.Player2Passed >= 1){
+        goToXY(37, 5);
+        printf("P");
+    }
+    goToXY(23, 5);
+    printf("Spieler X: %2i", numberPTwo);
 }
 

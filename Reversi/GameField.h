@@ -4,6 +4,7 @@
 ///Function Prototypes
 void drawGameBoard(struct SaveFile gameData);
 void drawScoreArea();
+int BoardFull(struct SaveFile gameData);
 
 
 #endif // GAMEFIELD_H_INCLUDED

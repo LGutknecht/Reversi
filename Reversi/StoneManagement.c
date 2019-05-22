@@ -50,6 +50,10 @@ int SetStone(struct SaveFile *gameData, int column, int row){
 int PlacementValid(struct SaveFile gameData, int column, int row){
     int Valid = 0;
 
+    if(gameData.GameField[row][column] != 0){
+        return 0;
+    }
+
     ///Checking Every Direction
     if(CheckStoneLeft(gameData, column, row) == 1){
         ///Marking Stones to be flipped

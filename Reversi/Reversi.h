@@ -14,6 +14,8 @@ struct SaveFile{
     int GameField[8][8];
     int Turn;
     int Time;
+    int Player1Passed;
+    int Player2Passed;
 };
 
 ///Declaring Variables
@@ -25,5 +27,7 @@ void openSettings(struct SaveFile *gameData);
 void setGameMode(struct SaveFile *gameData, bool playerAgainstPlayer);
 void openManual();
 void openControls();
+void WichPlayerWonMessage(struct SaveFile gameData);
+
 
 #endif // REVERSI_H_INCLUDED

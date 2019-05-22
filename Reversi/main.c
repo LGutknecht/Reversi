@@ -18,7 +18,6 @@
 int main() {
     ///declaration of the struct
     struct SaveFile gameData;
-
     ///Intialising Variables
     playerWin = false;
     gamePaused = false;
@@ -33,9 +32,22 @@ int main() {
     do {
         /**Drawing Game Board*/
         drawGameBoard(gameData);
+        if(BoardFull(gameData) == 1){
+            break;
+        }
+        if((gameData.Player1Passed == 1) && (gameData.Player2Passed == 1)){
+            break;
+        }
+        if((gameData.Player1Passed == 2) || (gameData.Player2Passed == 2)){
+            break;
+        }
         setGameStone(&gameData);
         whichPlayerTurn(&gameData);
     } while(playerWin == false);
+
+    WichPlayerWonMessage(gameData);
+
+
 }
 /**
 Function: drawing of MainMenu with printf(), press number-Buttons to navigate, the menu appears again, when no valid button is pressed,you can start the game, go to settings or quit the program
@@ -179,3 +191,38 @@ void openControls() {
     } while(input != '1');
 }
 
+void WichPlayerWonMessage(struct SaveFile gameData){
+    int numberPOne = 0, numberPTwo = 0;
+
+    for(int i = 0; i < 8; i++) {
+        for(int j = 0; j < 8; j++) {
+            if(gameData.GameField[i][j] == 1) {
+                numberPOne++;
+            }
+            else if(gameData.GameField[i][j] == 2) {
+                numberPTwo++;
+            }
+        }
+    }
+    if(gameData.Player1Passed == 2){
+        goToXY(0, 15);
+        printf("O hat aufgegeben! X hat gegen O mit %i zu %i gewonnen", numberPTwo, numberPOne);
+
+    }
+    else if(gameData.Player2Passed == 2){
+        goToXY(0, 15);
+        printf("X hat aufgegeben! O hat gegen X mit %i zu %i gewonnen", numberPOne, numberPTwo);
+    }
+    else if(numberPOne > numberPTwo){
+        goToXY(0, 15);
+        printf("O hat gegen X mit %i zu %i gewonnen", numberPOne, numberPTwo);
+    }
+    else if(numberPOne < numberPTwo){
+        goToXY(0, 15);
+        printf("X hat gegen O mit %i zu %i gewonnen", numberPTwo, numberPOne);
+    }
+    else if(numberPOne == numberPTwo){
+        goToXY(0, 15);
+        printf("O und X haben unentschieden gespielt");
+    }
+}

@@ -42,9 +42,11 @@ void setGameStone(struct SaveFile *gameData) {
                 if(SetStone(&(*gameData), column, row) == 1) {
                     if((*gameData).Turn == 1) {
                         (*gameData).GameField[row][column / 2] = 1;
+                        (*gameData).Player1Passed = 0;
                     }
                     else {
                         (*gameData).GameField[row][column / 2] = 2;
+                        (*gameData).Player2Passed = 0;
                     }
                 }
                 else {
@@ -59,15 +61,23 @@ void setGameStone(struct SaveFile *gameData) {
                 SaveGame(&(*gameData));
             }
         }
-        if(input == 'w' || input == 'a' || input == 's' || input == 'd' || input == 'y') {
-          checkNumberOfPlayerStones(&(*gameData));
-        }
         if(input == 'p') {
             gamePaused = !gamePaused;
             if(!gamePaused) {
                 goToXY(1, 9);
                 printf("               ");
             }
+        }
+        if(input == 'r'){
+            switch((*gameData).Turn){
+                case 1:
+                    (*gameData).Player1Passed++;
+                    break;
+                case 2:
+                    (*gameData).Player2Passed++;
+                    break;
+            }
+            break;
         }
         goToXY(column, row); ///going back to the coordinate where the cursor has been stand
     } while(input != 'y');
@@ -95,38 +105,6 @@ void whichPlayerTurn(struct SaveFile *gameData) {
     else {
         (*gameData).Turn = 1;
     }
-}
-/**
-Function: checks the number of the PlayerStones immediatly after a turn
-Input: struct gameData, column and row of the cursor on the field
-*/
-void checkNumberOfPlayerStones(struct SaveFile *gameData) {
-    int numberPOne = 0, numberPTwo = 0;
-
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; j < 8; j++) {
-            if((*gameData).GameField[i][j] == 1) {
-                numberPOne++;
-            }
-            else if((*gameData).GameField[i][j] == 2) {
-                numberPTwo++;
-            }
-        }
-    }
-    goToXY(27, 3);
-    printf("SCORE");
-    if((*gameData).Turn == 1){
-       goToXY(21, 4);
-       printf("->");
-    }
-    goToXY(23, 4);
-    printf("Spieler O: %2i", numberPOne);
-    if((*gameData).Turn == 2){
-       goToXY(21, 5);
-       printf("->");
-    }
-    goToXY(23, 5);
-    printf("Spieler X: %2i", numberPTwo);
 }
 
 /**
