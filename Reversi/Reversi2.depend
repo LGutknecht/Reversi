@@ -51,14 +51,14 @@
 	"SaveManagement.h"
 	"StoneManagement.h"
 
-1558560998 source:c:\users\vernohd\documents\reversi\reversi\gamefield.c
+1558642679 source:c:\users\vernohd\documents\reversi\reversi\gamefield.c
 	"Reversi.h"
 	"GameField.h"
 	"GamePlay.h"
 	"SaveManagement.h"
 	"StoneManagement.h"
 
-1558559910 c:\users\vernohd\documents\reversi\reversi\reversi.h
+1558645617 c:\users\vernohd\documents\reversi\reversi\reversi.h
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -75,21 +75,21 @@
 
 1558123393 c:\users\vernohd\documents\reversi\reversi\stonemanagement.h
 
-1558560876 source:c:\users\vernohd\documents\reversi\reversi\gameplay.c
+1558648243 source:c:\users\vernohd\documents\reversi\reversi\gameplay.c
 	"Reversi.h"
 	"GameField.h"
 	"GamePlay.h"
 	"SaveManagement.h"
 	"StoneManagement.h"
 
-1558560507 source:c:\users\vernohd\documents\reversi\reversi\main.c
+1558649405 source:c:\users\vernohd\documents\reversi\reversi\main.c
 	"Reversi.h"
 	"GameField.h"
 	"GamePlay.h"
 	"SaveManagement.h"
 	"StoneManagement.h"
 
-1558557333 source:c:\users\vernohd\documents\reversi\reversi\savemanagement.c
+1558647156 source:c:\users\vernohd\documents\reversi\reversi\savemanagement.c
 	"Reversi.h"
 	"GameField.h"
 	"GamePlay.h"
@@ -97,7 +97,7 @@
 	"StoneManagement.h"
 	<string.h>
 
-1558555360 source:c:\users\vernohd\documents\reversi\reversi\stonemanagement.c
+1558649295 source:c:\users\vernohd\documents\reversi\reversi\stonemanagement.c
 	"Reversi.h"
 	"GameField.h"
 	"GamePlay.h"

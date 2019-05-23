@@ -19,7 +19,7 @@ struct SaveFile{
 };
 
 ///Declaring Variables
-bool playerWin, gamePaused;
+bool playerWin, gamePaused, GameEnd;
 
 ///Function Prototypes
 int mainMenu(struct SaveFile *gameData);
@@ -28,6 +28,7 @@ void setGameMode(struct SaveFile *gameData, bool playerAgainstPlayer);
 void openManual();
 void openControls();
 void WichPlayerWonMessage(struct SaveFile gameData);
+int EndGame();
 
 
 #endif // REVERSI_H_INCLUDED
