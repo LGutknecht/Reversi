@@ -33,8 +33,9 @@ int SetStone(struct SaveFile *gameData, int column, int row){
         case 15:column = 7; break;
     }
 
-
+    ///Checking if Placement is valid
     if(PlacementValid((*gameData), column, row)){
+        ///Flipping all marked stones
         FlipStones(&(*gameData));
         return 1;
     }
@@ -48,8 +49,10 @@ int SetStone(struct SaveFile *gameData, int column, int row){
 *   1: Valid Position
 **/
 int PlacementValid(struct SaveFile gameData, int column, int row){
+    ///Declaring Variables
     int Valid = 0;
 
+    ///If Pace isn't empty, the placement can be aborted
     if(gameData.GameField[row][column] != 0){
         return 0;
     }
@@ -89,6 +92,7 @@ int PlacementValid(struct SaveFile gameData, int column, int row){
         MarkStoneDownRight(gameData, column, row);
         Valid = 1;
     }
+    ///Checking if a Valid move was found
     if(Valid == 0){
         return 0;
     } else {
@@ -100,6 +104,9 @@ int PlacementValid(struct SaveFile gameData, int column, int row){
 ///--------------------///
 ///STONE CHECKING LOGIC///
 ///--------------------///
+
+///THREE EXAMPLE FUNCTIONS, THE REST WORKS THE SAME///
+
 /**
 *   Checks Position in the direction given in the function Name
 *   Returns:
@@ -107,18 +114,25 @@ int PlacementValid(struct SaveFile gameData, int column, int row){
 *   1: Valid in this Direction
 **/
 int CheckStoneUp(struct SaveFile gameData, int column, int row){
+    ///Checking if there is no stone nearby
     if(CheckUp(gameData, column, row) == 1){
+        ///Going zo the first field to check
         row -= 2;
+        ///Prechecking if there is already a stone of the same color
         if((gameData.GameField[row][column] == gameData.Turn) && (PositionValid(column,row) == 1)){
             return 1;
         }
+        ///Looping to ininity, break condition inside loop
         while(1){
+            ///If Position is invalid, break
             if(PositionValid(column,row) == 0){
                 return 0;
             }
+            ///If there is no stone, break
             if(gameData.GameField[row][column] == 0){
                 return 0;
             }
+            ///If there is a stone of the same colr, return succes;
             if(gameData.GameField[row][column] == gameData.Turn){
                 return 1;
             }
@@ -136,8 +150,11 @@ int CheckStoneUp(struct SaveFile gameData, int column, int row){
 *   1: Not Blocked Position
 **/
 int CheckUp(struct SaveFile gameData, int column, int row){
+    ///Going to the nearest field
     row--;
+    ///Checking if position is valid
     if(PositionValid(column, row) == 1){
+        ///If The field is emptyor has the players colr, return failure, else succes
         if((gameData.GameField[row][column] == gameData.Turn) || (gameData.GameField[row][column] == 0)){
             return 0;
         } else {
@@ -154,7 +171,9 @@ int CheckUp(struct SaveFile gameData, int column, int row){
 *   1: Not Blocked Position
 **/
 void MarkStoneUp(struct SaveFile gameData, int column, int row){
+    ///Going to the next field
     row--;
+    ///Marking all stones to flipped until a stone of the same color is found
     while(gameData.GameField[row][column] != gameData.Turn){
         FlipBoard[row][column] = 1;
         row--;
@@ -505,8 +524,10 @@ void MarkStoneDownRight(struct SaveFile gameData, int column, int row){
 *   Flipping all stones marked on the FlipTable
 **/
 void FlipStones(struct SaveFile *gameData){
+    ///Looping through the Save Board
     for(int i = 0; i < 8; i++){
         for(int k = 0; k < 8; k++){
+            ///Only writing if there is a stone to flip
             if(FlipBoard[i][k] == 1){
                 if((*gameData).GameField[i][k] == 1){
                     (*gameData).GameField[i][k] = 2;
@@ -516,6 +537,7 @@ void FlipStones(struct SaveFile *gameData){
             }
         }
     }
+    ///Resetting the FlipBoard
     ResetFlipBoard();
 }
 
@@ -526,11 +548,14 @@ void FlipStones(struct SaveFile *gameData){
 *   1: Inside Range
 **/
 int PositionValid(int column, int row){
+    ///Declaring Variables
     int x = row;
     int y = column;
+    ///Checking Position for ROW
     if(x < 0 || x > 8){
         return 0;
     }
+    ///Cehcking Position for column
     if(y < 0 || y > 8){
         return 0;
     }
@@ -540,6 +565,7 @@ int PositionValid(int column, int row){
 *   This function Resets the FlipBoard
 **/
 void ResetFlipBoard(){
+    ///Looping through board
     for(int i = 0; i < 8; i++){
         for(int k = 0; k < 8; k++)
             FlipBoard[i][k] = 0;

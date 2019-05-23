@@ -41,47 +41,60 @@ void InitSave(struct SaveFile *gameData) {
     ///Reset Game Mode
     ///(*gameData).Mode = 0; Mode = 0: Player vs Player, Mode = 1: Player vs Computer
 }
-
+/**
+*   Function: Saves the GameState into a file
+*   Input: struct SaveFile gameData: Gets passed the SaveFile as a VAR to edit it
+*   Output: 1: no succes writing the file; 0: Succes writing the file
+*   **/
 int SaveGame(struct SaveFile *gameData) {
+    ///Declaring Variables
     FILE *outfile;
 
-    // open file for writing
+    /// open file for writing
     outfile = fopen ("Reversi.dat", "w");
+    ///If File not openable error
     if (outfile == NULL)
     {
-        fprintf(stderr, "\nError opening file\n");
+        fprintf(stderr, "\nDatei konnte nicht geöffnet werden\n");
         exit (1);
     }
 
-    // write struct to file
-    fwrite (&(*gameData), sizeof(struct SaveFile), 1, outfile);
 
-    if(fwrite != 0)
-        printf("contents to file written successfully !\n");
-    else
-        printf("error writing file !\n");
 
+    ///Writing succes message
+    if(fwrite (&(*gameData), sizeof(struct SaveFile), 1, outfile) != 0){
+        printf("Spiel wurde erfolgreich gespeichert !\n");
+    }else{
+        printf("Spiel konnte nicht gespeichert werden !\n");
+    }
     // close file
     fclose (outfile);
 
     return 0;
 }
 
+/**
+*   Function: Loads the GameState from a file
+*   Input: struct SaveFile gameData: Gets passed the SaveFile as a VAR to edit it
+*   Output: 1: no succes loading the file; 0: Succes Loading the file
+*   **/
 int LoadGame(struct SaveFile *gameData){
+    ///Declaring Variables
     FILE *infile;
 
-    // Open person.dat for reading
+    /// Open person.dat for reading
     infile = fopen ("Reversi.dat", "r");
+    ///If File not openable error
     if (infile == NULL)
     {
-        fprintf(stderr, "\nError opening file\n");
+        fprintf(stderr, "\nDatei konnte nicht geöffnet werden\n");
         exit (1);
     }
 
-    // read file contents
+    /// read file contents
     fread(&(*gameData), sizeof(struct SaveFile), 1, infile);
 
-    // close file
+    /// close file
     fclose (infile);
 
     return 0;
