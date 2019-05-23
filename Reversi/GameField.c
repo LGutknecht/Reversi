@@ -121,7 +121,6 @@ int BoardFull(struct SaveFile gameData){
 Function: checks the number of the PlayerStones immediatly after a turn
 Input: struct gameData, column and row of the cursor on the field
 */
-
 void checkNumberOfPlayerStones(struct SaveFile gameData) {
     int numberPOne = 0, numberPTwo = 0;
 
