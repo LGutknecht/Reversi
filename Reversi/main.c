@@ -59,7 +59,7 @@ int main() {
         WichPlayerWonMessage(gameData);
 
         ///Questioning if the player wants to play another round
-        if(GameEnd == 1){
+        if(EndGame() == 1){
             break;
         }
 
@@ -277,6 +277,8 @@ int EndGame(){
         ///Ending Game if input = 'n'
         if(input == 'n'){
             return 1;
+        }else if(input == 'y'){
+            return 0;
         }
     } while(input != ('y' || 'n'));
     return 0;
