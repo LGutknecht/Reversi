@@ -182,7 +182,7 @@ void openControls() {
         printf(" S = NACH UNTEN\n");
         printf(" A = NACH LINKS\n");
         printf(" D = NACH RECHTS\n\n");
-        printf(" Einloggen/Pausieren\\n\n");
+        printf(" Einloggen/Pausieren\n\n");
         printf(" Y = SPIELSTEIN SETZEN\n");
         printf(" P = SPIEL PAUSIEREN/FORTSETZEN\n\n");
         printf("1: Zurueck");
